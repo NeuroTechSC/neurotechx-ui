@@ -2,8 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Container, Button } from "shards-react";
 
 function Display() {
-  const [question, setQuestion] = useState(0);
-  const [currenttime, setCurrentTime] = useState(0);
+  const [question, setQuestion] = useState('Loading...');
+  const [currenttime, setCurrentTime] = useState('Loading...');
+  const [data, setData] = useState();
+
+  function refreshPage() {
+    window.location.reload(false);
+  }
 
   useEffect(() => {
     fetch('/question').then(res => res.json()).then(data => { // Request from Flask
@@ -13,6 +18,12 @@ function Display() {
   useEffect(() => {
     fetch('/time').then(res => res.json()).then(data => { // Request from Flask
       setCurrentTime(data.time);
+    });
+  }, []);
+
+  useEffect(() => {
+    fetch('/convertData').then(res => res.json()).then(data => { // Request from Flask
+      setCurrentTime(data.convertData);
     });
   }, []);
 
@@ -26,11 +37,13 @@ function Display() {
       </header>
     </div>
     <div className = 'Next'>
-    <form action="question" method="post">
-          <Button theme="primary" className="mb-2 mr-1">
-              Next
+
+          <Button theme="primary" onClick={refreshPage} className="mb-2 mr-1">
+              Next Question
           </Button>
-    </form>
+
+    
+
     </div>
 
     </Container>
