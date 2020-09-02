@@ -43,19 +43,20 @@ def get_random_question():
     randQuestion = randrange(20)
     question = ran[randQuestion]
 
-    values = (time.time(),     # Exact Current Time
+    values = (  time.time(),     # Exact Current Time
                 str(question), # Question generated
                 1,             # Model Response
                 1)             # Actual Response
 
     conn = sqlite3.connect('database.db', isolation_level=None, detect_types=sqlite3.PARSE_COLNAMES)
     conn.execute("""CREATE TABLE IF NOT EXISTS ModelResponse (
-                    id Integer,
-                    ques TEXT,
-                    resp INTEGER,
-                    truth INTEGER
+                    ID INTEGER PRIMARY KEY AUTOINCREMENT,
+                    Time Integer,
+                    Question TEXT,
+                    Response INTEGER,
+                    Truth INTEGER
                     )""")
-    conn.execute("""INSERT INTO ModelResponse VALUES (?, ?, ?, ?)""", values)
+    conn.execute("""INSERT INTO ModelResponse VALUES (NULL, ?, ?, ?, ?)""", values)
     r = conn.execute("""SELECT * FROM ModelResponse""")
     r.fetchall()
 
@@ -65,13 +66,15 @@ def get_random_question():
 def convert_db():
     conn = sqlite3.connect('database.db', isolation_level=None, detect_types=sqlite3.PARSE_COLNAMES)
     conn.execute("""CREATE TABLE IF NOT EXISTS ModelResponse (
-                    id Integer,
-                    ques TEXT,
-                    resp INTEGER,
-                    truth INTEGER
+                    ID INTEGER PRIMARY KEY AUTOINCREMENT,
+                    Time Integer,
+                    Question TEXT,
+                    Response INTEGER,
+                    Truth INTEGER
                     )""")
     db_df = pd.read_sql_query("SELECT * FROM ModelResponse", conn)
     db_df.to_csv('database.csv', index=False)
+    return 'database.csv'
 
 @app.route('/csv', methods=['POST', 'GET'])
 def download_csv():

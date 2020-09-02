@@ -1,15 +1,3 @@
-id,ques,resp,truth
-1598941471.868604,Can you see the moon?,1,1
-1598941472.5335722,Do you have a twin?,1,1
-1598941473.11825,Were you in the swamp yesterday?,1,1
-1598941473.750412,Can you play poker?,1,1
-1598941474.609527,Do mice really eat cheese?,1,1
-1598941475.359933,Do you know the Schrödinger equation of quantum theory?,1,1
-1598941475.95661,Are Martians really green?,1,1
-1598941476.6547132,Are Martians really green?,1,1
-1598941477.216981,Can you see out the back of your head?,1,1
-1598941477.923702,Can you see out the back of your head?,1,1
-1598941478.558034,Can you make yourself disappear?,1,1
-1598941479.195785,Can cats jump six times their length?,1,1
-1598941480.1035678,Is your shoe size 14?,1,1
-1598941480.931972,Do you like chocolate milkshakes?,1,1
+ID,Time,Question,Response,Truth
+1,1599050464.7211552,Can you make yourself disappear?,1,1
+2,1599050473.2980669,Were you in the swamp yesterday?,1,1

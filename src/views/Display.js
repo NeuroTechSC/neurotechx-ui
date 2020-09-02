@@ -4,6 +4,7 @@ import { Container, Button } from "shards-react";
 function Display() {
   const [question, setQuestion] = useState('Loading...');
   const [currenttime, setCurrentTime] = useState('Loading...');
+  const [convert, setConvert] = useState('Loading...');
 
 
   function refreshPage() {
@@ -20,6 +21,12 @@ function Display() {
       setCurrentTime(data.time);
     });
   }, []);
+  useEffect(() => {
+    fetch('/convertData').then(res => res.json()).then(data => { // Request from Flask
+      setConvert(data.convertData);
+    });
+  }, []);
+
 
   return (
     <Container fluid className="main-content-container px-4">
