@@ -4,7 +4,7 @@ import { Container, Button } from "shards-react";
 function Display() {
   const [question, setQuestion] = useState('Loading...');
   const [currenttime, setCurrentTime] = useState('Loading...');
-  const [data, setData] = useState();
+
 
   function refreshPage() {
     window.location.reload(false);
@@ -18,12 +18,6 @@ function Display() {
   useEffect(() => {
     fetch('/time').then(res => res.json()).then(data => { // Request from Flask
       setCurrentTime(data.time);
-    });
-  }, []);
-
-  useEffect(() => {
-    fetch('/convertData').then(res => res.json()).then(data => { // Request from Flask
-      setCurrentTime(data.convertData);
     });
   }, []);
 
@@ -42,7 +36,9 @@ function Display() {
               Next Question
           </Button>
 
-    
+          <form action="/csv" method="post">
+            <Button name="downloadBtn" type="submit">Download Data</Button>
+          </form>
 
     </div>
 

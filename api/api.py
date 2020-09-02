@@ -6,6 +6,7 @@ import csv
 import pandas as pd
 
 from flask import Flask
+from flask import send_file
 import sqlite3
 
 
@@ -72,6 +73,9 @@ def convert_db():
     db_df = pd.read_sql_query("SELECT * FROM ModelResponse", conn)
     db_df.to_csv('database.csv', index=False)
 
+@app.route('/csv', methods=['POST', 'GET'])
+def download_csv():
+    return send_file("./database.csv", as_attachment=True)
 
 
 
