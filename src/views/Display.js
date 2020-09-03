@@ -3,8 +3,14 @@ import { Container, Button } from "shards-react";
 import "./Display.css";
 
 function Display() {
-  const [question, setQuestion] = useState(0);
-  const [currenttime, setCurrentTime] = useState(0);
+  const [question, setQuestion] = useState('Loading...');
+  const [currenttime, setCurrentTime] = useState('Loading...');
+  const [convert, setConvert] = useState('Loading...');
+
+
+  function refreshPage() {
+    window.location.reload(false);
+  }
 
   useEffect(() => {
     fetch("/question")
@@ -22,6 +28,12 @@ function Display() {
         setCurrentTime(data.time);
       });
   }, []);
+  useEffect(() => {
+    fetch('/convertData').then(res => res.json()).then(data => { // Request from Flask
+      setConvert(data.convertData);
+    });
+  }, []);
+
 
   return (
     <Container fluid className="main-content-container px-4">
@@ -44,6 +56,7 @@ function Display() {
           </Button>                       
         </form>
       </div>
+
     </Container>
   );
 }
