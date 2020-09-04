@@ -13,6 +13,15 @@ function Display() {
   }
 
   useEffect(() => {
+    fetch('/question/').then(res => res.json()).then(data => { // Request from Flask
+      setQuestion(data.question);
+      console.log(data)
+    });
+  }, []);
+  useEffect(() => {
+    fetch('/time/').then(res => res.json()).then(data => { // Request from Flask
+      setCurrentTime(data.time);
+    });
     fetch("/question")
       .then((res) => res.json())
       .then((data) => {
