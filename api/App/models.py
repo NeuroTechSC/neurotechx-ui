@@ -9,10 +9,9 @@ class User(db.Model):
     pass
 
 
-class Trail(db.Model):
-    trail_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+class Trial(db.Model):
+    trial_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     question = db.Column(db.String(50))
-    word = db.Column(db.String(50))
 
 
 class ModelResponse(db.Model):
