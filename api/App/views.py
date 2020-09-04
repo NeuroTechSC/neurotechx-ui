@@ -40,7 +40,7 @@ def convert_db():
 
 @blue.route('/csv/', methods=['POST', 'GET'])
 def download_csv():
-    return send_file("./database.csv", as_attachment=True)
+    return send_file("../database.csv", as_attachment=True)
 
 
 @blue.route('/time/')

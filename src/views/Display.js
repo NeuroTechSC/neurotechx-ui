@@ -59,11 +59,14 @@ function Display() {
         </header>
       </div>
       <div className="Next">
-        <form action="question" method="post">
-          <Button theme="primary" className="mb-2 mr-1">
-            Next
-          </Button>                       
-        </form>
+
+        <Button theme="primary" onClick={refreshPage} className="mb-2 mr-1">
+              Next Question
+          </Button>
+
+          <form action="/csv/" method="post">
+            <Button name="downloadBtn" type="submit">Download Data</Button>
+          </form>
       </div>
 
     </Container>
@@ -71,4 +74,3 @@ function Display() {
 }
 
 export default Display;
-
