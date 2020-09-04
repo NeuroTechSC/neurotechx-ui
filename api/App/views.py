@@ -9,7 +9,7 @@ import pandas as pd
 from flask import Blueprint, send_file, json
 from sqlalchemy import func
 
-from App.models import db, Trail, ModelResponse
+from App.models import db, Trial, ModelResponse
 
 blue = Blueprint('blue', __name__)
 
@@ -20,17 +20,17 @@ def init_blueprint(app):
 
 @blue.route('/question/', methods=['POST', 'GET'])
 def get_random_question():
-    trail = Trail.query.order_by(func.random()).first()
+    trial = Trial.query.order_by(func.random()).first()
     # ModelResponse = ModelResponse()
     m = ModelResponse()
-    m.trial_number = trail.trail_id
+    m.trial_number = trial.trial_id
     m.expected_response = '1'
     m.recorded_response = '1'
     m.correct = False
     m.user_id = 0
     db.session.add(m)
     db.session.commit()
-    return json.jsonify({'question': trail.question})
+    return json.jsonify({'question': trial.question})
 
 
 @blue.route('/convertData')
@@ -77,7 +77,7 @@ def insert_question():
            'Are Martians really green?',
            'Have elves always live at the North Pole?']
     for question in ran:
-        q = Trail()
+        q = Trial()
         q.question = question
         q.word = 'y/n'
         db.session.add(q)
