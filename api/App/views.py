@@ -35,6 +35,21 @@ def get_random_question():
 
 @blue.route('/convertData')
 def convert_db():
+    result = db.session.query(ModelResponse, Trial).filter(ModelResponse.trial_number == Trial.trial_id).all()
+    data = []
+    for r in result:
+        model, trail = r
+        temp = {'id': model.response_id,
+                'question': trail.question,
+                'response': model.recorded_response,
+                'correct': model.correct,
+                'time': time.time()
+                }
+        data.append(temp)
+    df = pd.DataFrame(data)
+    # print(df)
+    df.to_csv('api/database.csv')
+    # print(data)
     return 'database.csv'
 
 
