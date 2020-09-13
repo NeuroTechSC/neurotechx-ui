@@ -14,7 +14,7 @@ function Display() {
 
   useEffect(() => {
     fetch('/question/').then(res => res.json()).then(data => { // Request from Flask
-      setQuestion(data.question);
+      setQuestion(data[0].question);
       console.log(data)
     });
   }, []);
@@ -22,15 +22,15 @@ function Display() {
     fetch('/time/').then(res => res.json()).then(data => { // Request from Flask
       setCurrentTime(data.time);
     });
-    fetch("/question")
+    fetch("/question/")
       .then((res) => res.json())
       .then((data) => {
         // Request from Flask
-        setQuestion(data.question);
+        setQuestion(data[0].question);
       });
   }, []);
   useEffect(() => {
-    fetch("/time")
+    fetch("/time/")
       .then((res) => res.json())
       .then((data) => {
         // Request from Flask

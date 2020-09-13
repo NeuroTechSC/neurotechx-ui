@@ -6,7 +6,7 @@ from datetime import datetime
 import csv
 import pandas as pd
 
-from flask import Blueprint, send_file, json
+from flask import Blueprint, send_file, json, request
 from sqlalchemy import func
 
 from App.models import db, Trial, ModelResponse
@@ -30,7 +30,9 @@ def get_random_question():
     m.user_id = 0
     db.session.add(m)
     db.session.commit()
-    return json.jsonify({'question': trial.question})
+    id = db.session.query(func.max(ModelResponse.response_id)).one()[0]
+    # print(id)
+    return json.jsonify([{'question': trial.question}, {'responseID': id}])
 
 
 @blue.route('/convertData')
@@ -98,3 +100,37 @@ def insert_question():
         db.session.add(q)
         db.session.commit()
     return 'add success'
+
+
+@blue.route('/getPrevQuestion/')
+def get_prev_question():
+    ret = []
+    result = db.session.query(ModelResponse, Trial).join(Trial, ModelResponse.trial_number == Trial.trial_id).all()
+    for r in result:
+        print(r)
+        model, trail = r
+        temp = {'id': model.response_id,
+                'question': trail.question,
+                'recordedResponse': model.recorded_response,
+                'correct': model.correct,
+                'time': time.time(),
+                'expectedResponse': model.expected_response
+                }
+        print(temp)
+        ret.append(temp)
+    return json.jsonify(ret)
+
+
+@blue.route('/recordAnswer/')
+def record_answer():
+    qaram = request.args
+    trail_id = qaram.get('questionid')
+    record_response = qaram.get('answer')
+    if trail_id and record_response:
+        print(trail_id)
+        db.session.query(ModelResponse).filter(ModelResponse.response_id == trail_id).update(
+            {"recorded_response": record_response})
+        db.session.commit()
+    else:
+        return 'fail', 404
+    return 'success'
