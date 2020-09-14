@@ -11,12 +11,7 @@ function Display() {
     window.location.reload(false);
   }
 
-  useEffect(() => {
-    fetch('/question/').then(res => res.json()).then(data => { // Request from Flask
-      setQuestion(data[0].question);
-      console.log(data)
-    });
-  }, []);
+  
   useEffect(() => {
     fetch('/time/').then(res => res.json()).then(data => { // Request from Flask
       setCurrentTime(data.time);
@@ -82,7 +77,7 @@ function Display() {
               </p>
               <br></br>
               <p className="question-pNew">{question}</p>
-              {/* 
+              {/*
               <a class="ans-yes"  href="#acc">Yes</a>
               <a class="ans-no" href="#acc">No</a>
               */}
@@ -144,7 +139,7 @@ function Display() {
             <input type="radio" name="checkAcc" value="No"></input>
             <label for="checkAcc">No</label>
           </p>
-          
+
           <br></br>
           <p className="question-p">{question}</p>
           <button className="ans-yes">Yes</button>
