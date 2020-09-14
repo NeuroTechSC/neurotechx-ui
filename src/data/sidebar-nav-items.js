@@ -7,6 +7,11 @@ export default function() {
       htmlAfter: ""
     },
     {
+      title: "Data",
+      htmlBefore: '<i class="material-icons">table_chart</i>',
+      to: "/Tables",
+    },
+    {
       title: "Blog Posts",
       htmlBefore: '<i class="material-icons">vertical_split</i>',
       to: "/blog-posts",
