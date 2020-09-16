@@ -27,11 +27,11 @@ function Display() {
   useEffect(async () => {
     let response = await fetch('/time/');
     let result = await response.json();
-    result = result.setCurrentTime(result.time);
+    let time = result.setCurrentTime(result.time);
 
-    let question = await fetch('/question/');
-    let res = await question.json();
-    res = res.setQuestion(res[0].question)
+    let question_response = await fetch('/question/');
+    let question_result = await question_response.json();
+    let question = question_result.setQuestion(question_result[0].question)
   }, []);
 
   // useEffect(() => {
@@ -46,7 +46,7 @@ function Display() {
   useEffect(async () => {
     let response = await fetch('/time/');
     let result = await response.json();
-    result = result.setCurrentTime(result.time);
+    let time = result.setCurrentTime(result.time);
   }, []);
 
   // useEffect(() => {
@@ -61,7 +61,7 @@ function Display() {
   useEffect(async () => {
     let response = await fetch('/convertData/');
     let result = await response.json();
-    result = result.setConvert(result.convertData);
+    let data = result.setConvert(result.convertData);
   }, []);
 
   return (
