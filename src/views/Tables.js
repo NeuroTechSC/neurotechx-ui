@@ -28,18 +28,26 @@ function timeConverter(UNIX_timestamp){
   return time;
 }
 
-  useEffect(() => {
-    fetch("/getPrevQuestion/")
-      .then((res) => res.json())
-      .then((data) => {
-        // Request from Flask
-        setId(data.slice(-1)[0].id);
-        setQuestion(data.slice(-1)[0].question);
-        setResponse(data.slice(-1)[0].recordedResponse);
-        setCorrect(data.slice(-1)[0].correct);
-        setTime(timeConverter(data.slice(-1)[0].time));
-        setExpected(data.slice(-1)[0].expectedResponse)
-      });
+  useEffect(async () => {
+    // fetch("/getPrevQuestion/")
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     // Request from Flask
+    //     setId(data.slice(-1)[0].id);
+    //     setQuestion(data.slice(-1)[0].question);
+    //     setResponse(data.slice(-1)[0].recordedResponse);
+    //     setCorrect(data.slice(-1)[0].correct);
+    //     setTime(timeConverter(data.slice(-1)[0].time));
+    //     setExpected(data.slice(-1)[0].expectedResponse)
+    //   });
+    let res = await fetch("/getPrevQuestion/")
+    let data = await res.json();
+    let id = data.setId(data.slice(-1)[0].question);
+    let ques = data.setQuestion(data.slice(-1)[0].recordedResponse);
+    let response = data.setResponse(data.slice(-1)[0].recordedResponse);
+    let correct = data.setCorrect(data.slice(-1)[0].correct);
+    let time = data.setTime(timeConverter(data.slice(-1)[0].time));
+    let expected = data.setExpected(data.slice(-1)[0].expectedResponse);
   }, []);
 
 return(
