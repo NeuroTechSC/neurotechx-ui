@@ -12,33 +12,56 @@ function Display() {
   }
 
   
-  useEffect(() => {
-    fetch('/time/').then(res => res.json()).then(data => { // Request from Flask
-      setCurrentTime(data.time);
-    });
-    fetch("/question/")
-      .then((res) => res.json())
-      .then((data) => {
-        // Request from Flask
-        setQuestion(data[0].question);
-      });
-  }, []);
-  useEffect(() => {
-    fetch("/time/")
-      .then((res) => res.json())
-      .then((data) => {
-        // Request from Flask
-        setCurrentTime(data.time);
-      });
+  // useEffect(() => {
+  //   fetch('/time/').then(res => res.json()).then(data => { // Request from Flask
+  //     setCurrentTime(data.time);
+  //   });
+  //   fetch("/question/")
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       // Request from Flask
+  //       setQuestion(data[0].question);
+  //     });
+  // }, []);
+
+  useEffect(async () => {
+    let response = await fetch('/time/');
+    let result = await response.json();
+    result = result.setCurrentTime(result.time);
+
+    let question = await fetch('/question/');
+    let res = await question.json();
+    res = res.setQuestion(res[0].question)
   }, []);
 
-  useEffect(() => {
-    fetch("/convertData")
-      .then((res) => res.json())
-      .then((data) => {
-        // Request from Flask
-        setConvert(data.convertData);
-      });
+  // useEffect(() => {
+  //   fetch("/time/")
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       // Request from Flask
+  //       setCurrentTime(data.time);
+  //     });
+  // }, []);
+
+  useEffect(async () => {
+    let response = await fetch('/time/');
+    let result = await response.json();
+    result = result.setCurrentTime(result.time);
+  }, []);
+
+  // useEffect(() => {
+  //   fetch("/convertData")
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       // Request from Flask
+  //       setConvert(data.convertData);
+  //     });
+  // }, []);
+
+  useEffect(async () => {
+    let response = await fetch('/convertData/');
+    let result = await response.json();
+    result = result.setConvert(result.convertData);
   }, []);
 
   return (
