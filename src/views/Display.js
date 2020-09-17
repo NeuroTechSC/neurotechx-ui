@@ -6,21 +6,36 @@ function Display() {
   const [question, setQuestion] = useState("Loading...");
   const [currenttime, setCurrentTime] = useState("Loading...");
   const [convert, setConvert] = useState("Loading...");
+  const [prevQuestion, getPrevQuestion] = useState("Loading...");
 
   function refreshPage() {
     window.location.reload(false);
   }
 
+  function displayResults() {
+    var length = prevQuestion.length;
+
+    for (var i = 0; i < length; i++) {
+      document.write(prevQuestion[i] + "<br >");
+    }
+  }
+
   useEffect(() => {
-    fetch('/question/').then(res => res.json()).then(data => { // Request from Flask
-      setQuestion(data[0].question);
-      console.log(data)
-    });
+    fetch("/question/")
+      .then((res) => res.json())
+      .then((data) => {
+        // Request from Flask
+        setQuestion(data[0].question);
+        console.log(data);
+      });
   }, []);
   useEffect(() => {
-    fetch('/time/').then(res => res.json()).then(data => { // Request from Flask
-      setCurrentTime(data.time);
-    });
+    fetch("/time/")
+      .then((res) => res.json())
+      .then((data) => {
+        // Request from Flask
+        setCurrentTime(data.time);
+      });
     fetch("/question/")
       .then((res) => res.json())
       .then((data) => {
@@ -64,6 +79,7 @@ function Display() {
           words words words words words words words words words words words
           words words words words words words words
         </p>
+
         <a
           class="button"
           href="#popupDisplay"
@@ -73,7 +89,7 @@ function Display() {
         </a>
       </div>
 
-      <div id="popupDisplay" class="overlay">
+      <div id="popupDisplay" className="overlay1">
         <div class="popup">
           <div className="App" id="mainDisplay">
             <header className="App-header">
@@ -86,84 +102,88 @@ function Display() {
               <a class="ans-yes"  href="#acc">Yes</a>
               <a class="ans-no" href="#acc">No</a>
               */}
-              <button className="ans-yesNew" href="#acc">
+
+              {/*<button action="recordAnswer" className="ans-yesNew" onClick="#acc" >
                 Yes
               </button>
               <br></br>
-              <button className="ans-noNew" href="#acc">
+              <button className="ans-noNew" href="#acc" >
                 No
-              </button>
-            </header>
-          </div>
-          <div className="Neext">
-            <Button theme="primary" onClick={refreshPage} className="mb-2 mr-1">
-              Next Question
-            </Button>
+            </button>*/}
 
-            <form action="/csv/" method="post">
-              <Button name="downloadBtn" type="submit">
-                Download Data
-              </Button>
-            </form>
+              <a className="ans-yesNew" href="#acc">
+                Yes
+              </a>
+              <br></br>
+              <br></br>
+              <a className="ans-noNew" href="#acc">
+                No &nbsp;
+              </a>
+
+              <div class=".listContainer"></div>
+            </header>
+
+            <div id="next">
+              <div className="popup">
+                <Button
+                  theme="primary"
+                  onClick={refreshPage}
+                  className="mb-2 mr-1"
+                >
+                  Next Question
+                </Button>
+
+                <form action="/csv/" method="post">
+                  <Button name="downloadBtn" type="submit">
+                    Download Data
+                  </Button>
+                </form>
+              </div>
+              <a class="close" href="#">
+                {" "}
+                &times;
+              </a>
+            </div>
           </div>
+        </div>
+      </div>
+
+      <div id="acc" class="overlay">
+        <div class="popupAcc">
+          <header>
+            <p className="Time" id="left">
+              Current Time: {currenttime}
+            </p>
+          </header>
           <a class="close" href="#">
             {" "}
             &times;
           </a>
-        </div>
-      </div>
-
-      <div id="acc" class="overlayAcc">
-        <div class="popupAcc">
           <div>
+            {/*
             <p className="accuracy" id="right">
-              Accuracy: <input type="radio" name="checkAcc" value="Yes"></input>
+              Accuracy: <input type="radio" name="checkAcc" value="Yes" href="#next"></input>
               <label for="checkAcc">Yes</label>{" "}
-              <input type="radio" name="checkAcc" value="No"></input>
+              <input type="radio" name="checkAcc" value="No" href="#next"></input>
               <label for="checkAcc">No</label>
             </p>
+            */}
+            <h1 className="accQ"> Was it accurate?</h1>
+            <a className="ans-yesNew" href="#popupDisplay" value="y">
+              Yes
+            </a>
+            <br></br>
+            <br></br>
+            <a className="ans-noNew" href="#popupDisplay" value="n">
+              No &nbsp;
+            </a>
           </div>
-          <a class="close" href="#">
+          {/*a <class="close" href="#">
             {" "}
             &times;
-          </a>
+          </a>*/}
         </div>
       </div>
-
-      {/*
-      <div className="App" id="mainDisplay">
-        <header className="App-header">
-          <p className="Time" id="left">
-            Current Time: {currenttime}
-          </p>
-          <p className="accuracy" id="right">
-            Accuracy:{" "}
-            <input type="radio" name="checkAcc" value="Yes"></input>
-            <label for="checkAcc">Yes</label>
-            {" "}
-            <input type="radio" name="checkAcc" value="No"></input>
-            <label for="checkAcc">No</label>
-          </p>
-          
-          <br></br>
-          <p className="question-p">{question}</p>
-          <button className="ans-yes">Yes</button>
-          <button className="ans-no">No</button>
-          {/*<p className="Time">Current Time: {currenttime}</p>
-        </header>
-      </div>
-
-      <div className="Next">
-
-        <Button theme="primary" onClick={refreshPage} className="mb-2 mr-1">
-              Next Question
-          </Button>
-
-          <form action="/csv/" method="post">
-            <Button name="downloadBtn" type="submit">Download Data</Button>
-          </form>
-      </div>
-    */}
     </Container>
   );
 }
