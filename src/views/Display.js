@@ -12,53 +12,57 @@ function Display() {
     window.location.reload(false);
   }
 
-  function displayResults() {
-    var length = prevQuestion.length;
+  
+  // useEffect(() => {
+  //   fetch('/time/').then(res => res.json()).then(data => { // Request from Flask
+  //     setCurrentTime(data.time);
+  //   });
+  //   fetch("/question/")
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       // Request from Flask
+  //       setQuestion(data[0].question);
+  //     });
+  // }, []);
 
-    for (var i = 0; i < length; i++) {
-      document.write(prevQuestion[i] + "<br >");
-    }
-  }
+  useEffect(async () => {
+    let response = await fetch('/time/');
+    let result = await response.json();
+    let time = result.setCurrentTime(result.time);
 
-  useEffect(() => {
-    fetch("/question/")
-      .then((res) => res.json())
-      .then((data) => {
-        // Request from Flask
-        setQuestion(data[0].question);
-        console.log(data);
-      });
-  }, []);
-  useEffect(() => {
-    fetch("/time/")
-      .then((res) => res.json())
-      .then((data) => {
-        // Request from Flask
-        setCurrentTime(data.time);
-      });
-    fetch("/question/")
-      .then((res) => res.json())
-      .then((data) => {
-        // Request from Flask
-        setQuestion(data[0].question);
-      });
-  }, []);
-  useEffect(() => {
-    fetch("/time/")
-      .then((res) => res.json())
-      .then((data) => {
-        // Request from Flask
-        setCurrentTime(data.time);
-      });
+    let question_response = await fetch('/question/');
+    let question_result = await question_response.json();
+    let question = question_result.setQuestion(question_result[0].question)
   }, []);
 
-  useEffect(() => {
-    fetch("/convertData")
-      .then((res) => res.json())
-      .then((data) => {
-        // Request from Flask
-        setConvert(data.convertData);
-      });
+  // useEffect(() => {
+  //   fetch("/time/")
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       // Request from Flask
+  //       setCurrentTime(data.time);
+  //     });
+  // }, []);
+
+  useEffect(async () => {
+    let response = await fetch('/time/');
+    let result = await response.json();
+    let time = result.setCurrentTime(result.time);
+  }, []);
+
+  // useEffect(() => {
+  //   fetch("/convertData")
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       // Request from Flask
+  //       setConvert(data.convertData);
+  //     });
+  // }, []);
+
+  useEffect(async () => {
+    let response = await fetch('/convertData/');
+    let result = await response.json();
+    let data = result.setConvert(result.convertData);
   }, []);
 
   return (
@@ -98,7 +102,7 @@ function Display() {
               </p>
               <br></br>
               <p className="question-pNew">{question}</p>
-              {/* 
+              {/*
               <a class="ans-yes"  href="#acc">Yes</a>
               <a class="ans-no" href="#acc">No</a>
               */}
@@ -184,6 +188,7 @@ function Display() {
           </a>*/}
         </div>
       </div>
+
     </Container>
   );
 }

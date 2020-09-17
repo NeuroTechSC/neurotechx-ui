@@ -7,6 +7,7 @@ import { DefaultLayout } from "./layouts";
 // Route Views
 import Display from "./views/Display";
 import BlogPosts from "./views/BlogPosts";
+import Tables from "./views/Tables";
 
 export default [
   {
@@ -24,5 +25,10 @@ export default [
     path: "/blog-posts",
     layout: DefaultLayout,
     component: BlogPosts
+  },
+  {
+    path: "/Tables",
+    layout: DefaultLayout,
+    component: Tables
   }
 ];
