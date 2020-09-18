@@ -12,58 +12,41 @@ function Display() {
     window.location.reload(false);
   }
 
-  
-  // useEffect(() => {
-  //   fetch('/time/').then(res => res.json()).then(data => { // Request from Flask
-  //     setCurrentTime(data.time);
-  //   });
-  //   fetch("/question/")
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       // Request from Flask
-  //       setQuestion(data[0].question);
-  //     });
-  // }, []);
 
-  useEffect(async () => {
-    let response = await fetch('/time/');
-    let result = await response.json();
-    let time = result.setCurrentTime(result.time);
-
-    let question_response = await fetch('/question/');
-    let question_result = await question_response.json();
-    let question = question_result.setQuestion(question_result[0].question)
+  useEffect(() => {
+    fetch('/time/').then(res => res.json()).then(data => { // Request from Flask
+      setCurrentTime(data.time);
+    });
+    fetch("/question/")
+      .then((res) => res.json())
+      .then((data) => {
+        // Request from Flask
+        setQuestion(data[0].question);
+      });
   }, []);
 
-  // useEffect(() => {
-  //   fetch("/time/")
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       // Request from Flask
-  //       setCurrentTime(data.time);
-  //     });
-  // }, []);
 
-  useEffect(async () => {
-    let response = await fetch('/time/');
-    let result = await response.json();
-    let time = result.setCurrentTime(result.time);
+
+  useEffect(() => {
+    fetch("/time/")
+      .then((res) => res.json())
+      .then((data) => {
+        // Request from Flask
+        setCurrentTime(data.time);
+      });
   }, []);
 
-  // useEffect(() => {
-  //   fetch("/convertData")
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       // Request from Flask
-  //       setConvert(data.convertData);
-  //     });
-  // }, []);
 
-  useEffect(async () => {
-    let response = await fetch('/convertData/');
-    let result = await response.json();
-    let data = result.setConvert(result.convertData);
+  useEffect(() => {
+    fetch("/convertData")
+      .then((res) => res.json())
+      .then((data) => {
+        // Request from Flask
+        setConvert(data.convertData);
+      });
   }, []);
+
+
 
   return (
     <Container fluid className="main-content-container px-4">
