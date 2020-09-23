@@ -33,12 +33,16 @@ def main ():
     params.ip_protocol = args.ip_protocol
     params.timeout = args.timeout
 
+    print('args', args)
+    print('params', params)
+
     if (args.log):
         BoardShim.enable_dev_board_logger ()
     else:
         BoardShim.disable_board_logger ()
 
-    board = BoardShim (args.board_id, params)
+    board = BoardShim(args.board_id, params)
+    print('board', board)
     board.prepare_session ()
 
     # board.start_stream () # use this for default options
