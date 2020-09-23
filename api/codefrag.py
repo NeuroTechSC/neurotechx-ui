@@ -114,6 +114,7 @@ def predict(prediction, filepath, model):
     prediction = prediction.unsqueeze(1)
 
     model.load_state_dict(torch.load(filepath))
+    model.eval()
     with torch.no_grad():
         label = CNNPoor(prediction.float())
     label = torch.round(label)
