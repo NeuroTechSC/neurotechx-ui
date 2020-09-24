@@ -67,6 +67,6 @@ def recordData(serial_port, board_id=0, samples=500):
     data = board.get_board_data()
     board.stop_stream()
     board.release_session()
-	return data
+    return data
 
 recordData('/dev/cu.usbserial-DM02582X ')
