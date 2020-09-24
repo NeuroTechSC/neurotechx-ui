@@ -61,7 +61,7 @@ def recordData(serial_port, board_id=0, samples=500):
     board = BoardShim(board_id, params)
     board.prepare_session()
 
-    board.start_stream(samples)
+    board.start_stream(samples + 1)
     time.sleep(2.5)
 
     data = board.get_board_data()
