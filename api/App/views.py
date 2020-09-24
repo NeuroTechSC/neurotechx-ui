@@ -6,6 +6,8 @@ from datetime import datetime
 import csv
 import pandas as pd
 
+import hardware
+
 from flask import Blueprint, send_file, json, request
 from sqlalchemy import func
 
@@ -121,7 +123,7 @@ def get_prev_question():
     return json.jsonify(ret)
 
 
-@blue.route('/recordAnswer/')
+@blue.route('/recordAnswer/', methods=['POST', 'GET'])
 def record_answer():
     qaram = request.args
     trail_id = qaram.get('questionid')
@@ -134,3 +136,18 @@ def record_answer():
     else:
         return 'fail', 404
     return 'success'
+
+
+@blue.route('/recordSubvocalization/', methods=['POST', 'GET'])
+def record_Subvocalization():
+
+    # Start recording (2 second chunk..)
+
+
+    data = hardware.returnData(board_id, args)
+
+    # Data Processing pipeline (2 second chunk..)
+
+    # ML Model return 1 or 0
+
+    # Return yes or no ...
