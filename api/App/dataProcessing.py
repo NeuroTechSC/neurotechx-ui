@@ -45,7 +45,7 @@ def process(chunk):
 	normalized_data = mne.io.RawArray(normalized_raw, info)
 	return normalized_data[:][0]
 
-# def splice(filename, channels=8, hz=250, chunkSecs=2):
+# def splice(filename, channels=7, hz=250, chunkSecs=2):
 
 # 	chunks, curr, labels = [], [], [] # all chunks, current reading chunk
 # 	#with open(filename, 'r') as file:

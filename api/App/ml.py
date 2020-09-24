@@ -107,6 +107,7 @@ loss_function = nn.BCELoss()
 optimizer = optim.Adam(CNNPoor.parameters(), lr = 0.001)
 
 def predict(chunk, filepath, model=CNNPoor):
+    chunk = np.expand_dims(chunk, axis=0)
     scaler = StandardScaler()
     for i in range(len(chunk)):
         chunk[i] = scaler.fit_transform(chunk[i])
