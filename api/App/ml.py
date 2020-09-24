@@ -16,10 +16,10 @@ This notebook is a neural network that is based as much off of the EEGNet paper 
 
 import numpy as np
 
-from sklearn.metrics import roc_auc_score, precision_score, recall_score, accuracy_score, classification_report
-from sklearn.model_selection import train_test_split, KFold, RepeatedKFold, cross_val_score
+# from sklearn.metrics import roc_auc_score, precision_score, recall_score, accuracy_score, classification_report
+# from sklearn.model_selection import train_test_split, KFold, RepeatedKFold, cross_val_score
 from sklearn.preprocessing import StandardScaler
-from sklearn.utils import shuffle
+# from sklearn.utils import shuffle
 
 import torch
 import torch.nn as nn
@@ -28,9 +28,9 @@ import torch.optim as optim
 from torch.autograd import Variable, gradcheck
 from torch.utils.data import TensorDataset, DataLoader
 
-from matplotlib import pyplot
+# from matplotlib import pyplot
 
-import math
+# import math
 
 """# Check for GPU availability and set device"""
 
@@ -106,7 +106,7 @@ CNNPoor = CNNPoor.to(device)
 loss_function = nn.BCELoss()
 optimizer = optim.Adam(CNNPoor.parameters(), lr = 0.001)
 
-def predict(chunk, filepath, model):
+def predict(chunk, filepath, model=CNNPoor):
     scaler = StandardScaler()
     for i in range(len(chunk)):
         chunk[i] = scaler.fit_transform(chunk[i])

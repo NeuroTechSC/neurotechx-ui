@@ -6,15 +6,16 @@ from datetime import datetime
 import csv
 import pandas as pd
 
-import hardware
-
 from flask import Blueprint, send_file, json, request
 from sqlalchemy import func
 
 from App.models import db, Trial, ModelResponse
 
-blue = Blueprint('blue', __name__)
+import App.hardware
+import App.dataProcessing
+import App.ml
 
+blue = Blueprint('blue', __name__)
 
 def init_blueprint(app):
     app.register_blueprint(blueprint=blue)
@@ -138,16 +139,21 @@ def record_answer():
     return 'success'
 
 
-@blue.route('/recordSubvocalization/', methods=['POST', 'GET'])
+@blue.route('/recordSubvocalization/', methods=['GET'])
 def record_Subvocalization():
+    # TODO: get serial port from POST
 
     # Start recording (2 second chunk..)
-
-
-    data = hardware.returnData(board_id, args)
+    chunk = hardware.recordData('/dev/cu.usbserial-DM02582X')
+    print(chunk.shape)
 
     # Data Processing pipeline (2 second chunk..)
+    chunk = dataProcessing.process(chunk)
+    print(chunk.shape)
 
     # ML Model return 1 or 0
+    prediction = ml.predict(chunk, './ml_model.pt')
+    print(prediction)
 
     # Return yes or no ...
+    return json.jsonify({'prediction': prediction})
