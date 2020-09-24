@@ -69,4 +69,4 @@ def recordData(serial_port, board_id=0, samples=500):
     board.release_session()
     return data
 
-recordData('/dev/cu.usbserial-DM02582X')
+print(recordData('/dev/cu.usbserial-DM02582X'))
