@@ -2,8 +2,12 @@ import hardware
 import dataProcessing
 import ml
 
+import numpy as np
+
 # Start recording (2 second chunk..)
-chunk = hardware.recordData('/dev/cu.usbserial-DM02582X')
+chunk = hardware.recordData('/dev/cu.usbserial-DM02582X', samples=501)
+chunk = chunk.T
+print(chunk[0])
 print(chunk.shape)
 
 # Data Processing pipeline (2 second chunk..)
