@@ -46,40 +46,36 @@ def processing(sample):
 	normalized_data = mne.io.RawArray(normalized_raw, info)
 	return normalized_data[:][0]
 
-def splice(filename, truth, channels=8, hz=250, chunkSecs=2):
+def splice(filename, channels=8, hz=250, chunkSecs=2):
 
 	chunks, curr, labels = [], [], [] # all chunks, current reading sample
-	with open(filename, 'r') as file:
-		f = csv.reader(file)
-		for i in range(5): # skip first five lines
-			next(f)
+	#with open(filename, 'r') as file:
+	#f = csv.reader(file)
+	# for i in range(5): # skip first five lines
+	# 	next(f)
 
-		for l in f:
-			if len(curr) == chunkSecs * hz: # if done with one sample
-				# if len(chunks) < 35:
-				# 	labels.append(1)
-				# else:
-				# 	labels.append(0)
+	for l in filename:
+		if len(curr) == chunkSecs * hz: # if done with one sample
+			# if len(chunks) < 35:
+			# 	labels.append(1)
+			# else:
+			# 	labels.append(0)
 
-				# decide how to label data.
-				if truth == "no" :
-					labels.append(0)
-				elif truth == "yes" :
-					labels.append(1)
+			# decide how to label data.
+			# if truth == "no" :
+			# 	labels.append(0)
+			# elif truth == "yes" :
+			# 	labels.append(1)
 
-				chunks.append(processing(curr)) # add to list of all chunks
-				curr = [] # prepare for next sample
+			chunks.append(processing(curr)) # add to list of all chunks
+			curr = [] # prepare for next sample
 
-			curr.append([float(x) for x in l[1:channels]]) # add channel recording to current sample
+		curr.append([float(x) for x in l[1:channels]]) # add channel recording to current sample
 
 	data = np.asarray(chunks) # convert chunks to np array
-	with open('%s_labels.csv' % filename.split('.')[0], 'w', newline='') as file:
-		writer = csv.writer(file)
-		writer.writerow(labels)
+	# with open('%s_labels.csv' % filename.split('.')[0], 'w', newline='') as file:
+	# 	writer = csv.writer(file)
+	# 	writer.writerow(labels)
 
 	pickle.dump(data, open('%s.pkl' % filename.split('.')[0], 'wb'))
 	print('Extracted %d chunks from %s' % (data.shape[0], filename))
-
-
-
-splice("Phoebe-20200918T044623Z-001")
