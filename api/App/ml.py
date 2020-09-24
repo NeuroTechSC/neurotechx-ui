@@ -30,7 +30,7 @@ from torch.utils.data import TensorDataset, DataLoader
 
 # from matplotlib import pyplot
 
-# import math
+import math
 
 """# Check for GPU availability and set device"""
 
