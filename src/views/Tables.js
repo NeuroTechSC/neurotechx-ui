@@ -77,9 +77,6 @@ return(
                   <th scope="col" className="border-0">
                     Time
                   </th>
-                  <th scope="col" className="border-0">
-                    Expected Response
-                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -89,7 +86,6 @@ return(
                   <td>{response}</td>
                   <td>{correct}</td>
                   <td>{time}</td>
-                  <td>{expected}</td>
                 </tr>
               </tbody>
             </table>

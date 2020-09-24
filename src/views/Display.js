@@ -7,6 +7,7 @@ function Display() {
   const [currenttime, setCurrentTime] = useState("Loading...");
   const [convert, setConvert] = useState("Loading...");
   const [prevQuestion, getPrevQuestion] = useState("Loading...");
+  const [prediction, setPrediction] = useState("Loading...");
 
   function refreshPage() {
     window.location.reload(false);
@@ -38,6 +39,15 @@ function Display() {
 
 
   useEffect(() => {
+    fetch("/recordSubvocalization/")
+      .then((res) => res.json())
+      .then((data) => {
+        // Request from Flask
+        setPrediction(data.prediction);
+      });
+  }, []);
+
+  useEffect(() => {
     fetch("/convertData")
       .then((res) => res.json())
       .then((data) => {
@@ -56,15 +66,7 @@ function Display() {
         </h2>
         <p style={{ paddingLeft: "55px" }}>
           {" "}
-          words words words words words words words words words words words
-          words words words words words words words words words words words
-          words words words words words words words words words words words
-          words words words words words words words words words words words
-          words words words words words words words words words words words
-          words words words words words words words words words words words
-          words words words words words words words words words words words
-          words words words words words words words words words words words
-          words words words words words words words
+          
         </p>
 
         <a
@@ -82,6 +84,8 @@ function Display() {
             <header className="App-header">
               <p className="Time" id="left">
                 Current Time: {currenttime}
+                <br />
+                Prediction: {prediction}
               </p>
               <br></br>
               <p className="question-pNew">{question}</p>
@@ -111,7 +115,7 @@ function Display() {
             </header>
 
             <div id="next">
-              <div className="popup">
+            <br />
                 <Button
                   theme="primary"
                   onClick={refreshPage}
@@ -125,7 +129,6 @@ function Display() {
                     Download Data
                   </Button>
                 </form>
-              </div>
               <a class="close" href="#">
                 {" "}
                 &times;

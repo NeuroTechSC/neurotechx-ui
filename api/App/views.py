@@ -10,6 +10,7 @@ from flask import Blueprint, send_file, json, request
 from sqlalchemy import func
 
 from App.models import db, Trial, ModelResponse
+from App.service import calculate_accuracy
 
 import App.hardware
 import App.dataProcessing
@@ -138,8 +139,30 @@ def record_answer():
         return 'fail', 404
     return 'success'
 
+@blue.route('/getQuestion/')
+def get_question_byid():
+    q_id = request.args.get('questionid')
+    result = db.session.query(ModelResponse, Trial).filter(ModelResponse.trial_number == Trial.trial_id).filter(
+        ModelResponse.response_id == q_id).first()
+    if result:
+        model, trail = result
+        # print(result)
+        return json.jsonify({'id': model.response_id,
+                             'question': trail.question,
+                             'recordedResponse': model.recorded_response,
+                             'correct': model.correct,
+                             'expectedResponse': model.expected_response
+                             })
+    return 'fail', 404
 
-@blue.route('/recordSubvocalization/', methods=['GET'])
+
+@blue.route('/getAccuracy/')
+def get_accuracy():
+    result = calculate_accuracy()
+    return {'accuracy': result}
+
+
+@blue.route('/recordSubvocalization/')
 def record_Subvocalization():
     # TODO: get serial port from POST
 
