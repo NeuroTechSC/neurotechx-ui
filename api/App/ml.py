@@ -111,13 +111,13 @@ def predict(chunk, filepath, model=CNNPoor):
     scaler = StandardScaler()
     for i in range(len(chunk)):
         chunk[i] = scaler.fit_transform(chunk[i])
-    prediction = torch.from_numpy(prediction)
-    prediction = prediction.unsqueeze(1)
+    chunk = torch.from_numpy(chunk)
+    chunk = chunk.unsqueeze(1)
 
     model.load_state_dict(torch.load(filepath))
     model.eval()
     with torch.no_grad():
-        label = CNNPoor(prediction.float())
+        label = CNNPoor(chunk.float())
     label = torch.round(label)
     label = label.numpy()
 
