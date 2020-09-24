@@ -106,10 +106,10 @@ CNNPoor = CNNPoor.to(device)
 loss_function = nn.BCELoss()
 optimizer = optim.Adam(CNNPoor.parameters(), lr = 0.001)
 
-def predict(prediction, filepath, model):
+def predict(chunk, filepath, model):
     scaler = StandardScaler()
-    for i in range(len(prediction)):
-        prediction[i] = scaler.fit_transform(prediction[i])
+    for i in range(len(chunk)):
+        chunk[i] = scaler.fit_transform(chunk[i])
     prediction = torch.from_numpy(prediction)
     prediction = prediction.unsqueeze(1)
 

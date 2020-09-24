@@ -6,21 +6,20 @@ import brainflow
 from brainflow.board_shim import BoardShim, BrainFlowInputParams
 from brainflow.data_filter import DataFilter, FilterTypes, AggOperations
 
-
 def main():
     parser = argparse.ArgumentParser()
     # use docs to check which parameters are required for specific board, e.g. for Cyton - set serial port
-    parser.add_argument('--timeout', type = int, help  = 'timeout for device discovery or connection', required = False, default = 0)
-    parser.add_argument('--ip-port', type = int, help  = 'ip port', required = False, default = 0)
-    parser.add_argument('--ip-protocol', type = int, help  = 'ip protocol, check IpProtocolType enum', required = False, default = 0)
-    parser.add_argument('--ip-address', type = str, help  = 'ip address', required = False, default = '')
-    parser.add_argument('--serial-port', type = str, help  = 'serial port', required = False, default = '')
-    parser.add_argument('--mac-address', type = str, help  = 'mac address', required = False, default = '')
-    parser.add_argument('--other-info', type = str, help  = 'other info', required = False, default = '')
-    parser.add_argument('--streamer-params', type = str, help  = 'streamer params', required = False, default = '')
-    parser.add_argument('--serial-number', type = str, help  = 'serial number', required = False, default = '')
-    parser.add_argument('--board-id', type = int, help  = 'board id, check docs to get a list of supported boards', required = True)
-    parser.add_argument('--log', action = 'store_true')
+    parser.add_argument('--timeout', type=int, help='timeout for device discovery or connection', required=False, default=0)
+    parser.add_argument('--ip-port', type=int, help='ip port', required=False, default=0)
+    parser.add_argument('--ip-protocol', type=int, help='ip protocol, check IpProtocolType enum', required=False, default=0)
+    parser.add_argument('--ip-address', type=str, help='ip address', required=False, default='')
+    parser.add_argument('--serial-port', type=str, help='serial port', required=False, default='')
+    parser.add_argument('--mac-address', type=str, help='mac address', required=False, default='')
+    parser.add_argument('--other-info', type=str, help='other info', required=False, default='')
+    parser.add_argument('--streamer-params', type=str, help='streamer params', required=False, default='')
+    parser.add_argument('--serial-number', type=str, help='serial number', required=False, default='')
+    parser.add_argument('--board-id', type=int, help='board id, check docs to get a list of supported boards', required=True)
+    parser.add_argument('--log', action='store_true')
     args = parser.parse_args()
 
     params = BrainFlowInputParams()
@@ -56,6 +55,18 @@ def main():
 
     print(data)
 
+def recordData(serial_port, board_id=0, samples=500):
+	params = BrainFlowInputParams()
+	params.serial_port = serial_port
+	board = BoardShim(board_id, params)
+    board.prepare_session()
 
-if __name__ == "__main__":
-    main()
+    board.start_stream(samples)
+    time.sleep(2.5)
+
+    data = board.get_board_data()
+    board.stop_stream()
+    board.release_session()
+	return data
+
+recordData('/dev/cu.usbserial-DM02582X ')
