@@ -121,4 +121,4 @@ def predict(chunk, filepath, model=CNNPoor):
     label = torch.round(label)
     label = label.numpy()
 
-    return label[0][0]
+    return int(label[0][0])

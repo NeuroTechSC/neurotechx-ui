@@ -67,4 +67,6 @@ def recordData(serial_port, board_id=0, samples=500):
     data = board.get_board_data()
     board.stop_stream()
     board.release_session()
+
+    data = data[:7].T
     return data
