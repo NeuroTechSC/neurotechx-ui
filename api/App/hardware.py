@@ -56,9 +56,9 @@ def main():
     print(data)
 
 def recordData(serial_port, board_id=0, samples=500):
-	params = BrainFlowInputParams()
-	params.serial_port = serial_port
-	board = BoardShim(board_id, params)
+    params = BrainFlowInputParams()
+    params.serial_port = serial_port
+    board = BoardShim(board_id, params)
     board.prepare_session()
 
     board.start_stream(samples)
