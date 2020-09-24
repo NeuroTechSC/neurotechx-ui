@@ -1,6 +1,6 @@
-import App.hardware
-import App.dataProcessing
-import App.ml
+import hardware
+import dataProcessing
+import ml
 
 # Start recording (2 second chunk..)
 chunk = hardware.recordData('/dev/cu.usbserial-DM02582X')
