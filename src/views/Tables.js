@@ -69,7 +69,7 @@ return(
                     Question
                   </th>
                   <th scope="col" className="border-0">
-                    Recorded Response
+                    Expected Response
                   </th>
                   <th scope="col" className="border-0">
                     Correct
@@ -83,7 +83,7 @@ return(
                 <tr>
                   <td>{id}</td>
                   <td><p>{question}</p></td>
-                  <td>{response}</td>
+                  <td>{expected}</td>
                   <td>{correct}</td>
                   <td>{time}</td>
                 </tr>

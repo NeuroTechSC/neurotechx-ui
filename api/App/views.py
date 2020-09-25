@@ -37,8 +37,9 @@ def get_random_question():
     db.session.add(m)
     db.session.commit()
     id = db.session.query(func.max(ModelResponse.response_id)).one()[0]
+    ID = int(id)
     # print(id)
-    return json.jsonify([{'question': trial.question}, {'responseID': id}])
+    return json.jsonify([{'question': trial.question}, {'responseID': ID}])
 
 
 @blue.route('/convertData')
@@ -142,7 +143,7 @@ def record_answer():
     return 'success'
 
 
-@blue.route('/recordCorrection/')
+@blue.route('/recordCorrection/',methods=['POST', 'GET'])
 def record_correction():
     q_id = request.args.get('questionid')
     correction = request.args.get('correction')  # True or False
@@ -158,7 +159,7 @@ def record_correction():
     # return 'aaa'
 
 
-@blue.route('/getQuestion/')
+@blue.route('/getQuestion/',methods=['POST', 'GET'])
 def get_question_byid():
     q_id = request.args.get('questionid')
     result = db.session.query(ModelResponse, Trial).filter(ModelResponse.trial_number == Trial.trial_id).filter(
@@ -175,28 +176,30 @@ def get_question_byid():
     return 'fail', 404
 
 
-@blue.route('/getAccuracy/')
+@blue.route('/getAccuracy/',methods=['POST', 'GET'])
 def get_accuracy():
     result = calculate_accuracy()
-    return {'accuracy': result}
+    return json.jsonify({'accuracy': result})
 
 
-@blue.route('/recordSubvocalization/')
+@blue.route('/recordSubvocalization/', methods=['POST', 'GET'])
 def record_Subvocalization():
-    # TODO: get serial port from POST
-
-    # Start recording (2 second chunk..)
-    chunk = hardware.recordData('/dev/cu.usbserial-DM02582X')
-    print(chunk.shape)
-
-    # Data Processing pipeline (2 second chunk..)
-    chunk = dataProcessing.process(chunk)
-    print(chunk.shape)
-
-    # ML Model return 1 or 0
-    prediction = ml.predict(chunk, './ml_model.pt')
-    print(prediction)
+    # # TODO: get serial port from POST
+    #
+    # # Start recording (2 second chunk..)
+    # chunk = hardware.recordData('/dev/cu.usbserial-DM02582X')
+    # print(chunk.shape)
+    #
+    # # Data Processing pipeline (2 second chunk..)
+    # chunk = dataProcessing.process(chunk)
+    # print(chunk.shape)
+    #
+    # # ML Model return 1 or 0
+    # prediction = ml.predict(chunk, './ml_model.pt')
+    # print(prediction)
+    prediction = 0
     trail_id = request.args.get('questionid')
+    print(trail_id)
     db.session.query(ModelResponse).filter(ModelResponse.response_id == trail_id).update(
         {"expected_response": prediction})
     db.session.commit()

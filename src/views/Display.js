@@ -1,18 +1,47 @@
 import React, { useEffect, useState } from "react";
 import { Container, Button } from "shards-react";
+
 import "./Display.css";
+
 
 function Display() {
   const [question, setQuestion] = useState("Loading...");
+  const [responseID, setResponseID] = useState("Loading...");
   const [currenttime, setCurrentTime] = useState("Loading...");
   const [convert, setConvert] = useState("Loading...");
   const [prevQuestion, getPrevQuestion] = useState("Loading...");
   const [prediction, setPrediction] = useState("Loading...");
+  const [accuracy, setAccuracy] = useState("Loading...");
+
 
   function refreshPage() {
     window.location.reload(false);
   }
 
+  function sleep(milliseconds) {
+    const date = Date.now();
+    let currentDate = null;
+    do {
+      currentDate = Date.now();
+    } while (currentDate - date < milliseconds);
+}
+
+  function timeConverter(UNIX_timestamp){
+    var a = new Date(UNIX_timestamp * 1000);
+    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    var year = a.getFullYear();
+    var month = months[a.getMonth()];
+    var date = a.getDate();
+    var hour = a.getHours();
+    var min = a.getMinutes();
+    var sec = a.getSeconds();
+    var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
+    return time;
+  }
+
+  function round(value, decimals) {
+    return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
+  }
 
   useEffect(() => {
     fetch('/time/').then(res => res.json()).then(data => { // Request from Flask
@@ -23,23 +52,32 @@ function Display() {
       .then((data) => {
         // Request from Flask
         setQuestion(data[0].question);
+        setResponseID(data[1].responseID);
+        console.log(responseID);
       });
   }, []);
 
-
+  useEffect(() => {
+    fetch("/getAccuracy/")
+      .then((res) => res.json())
+      .then((data) => {
+        // Request from Flask
+        setAccuracy(round(data.accuracy,3));
+      });
+  }, []);
 
   useEffect(() => {
     fetch("/time/")
       .then((res) => res.json())
       .then((data) => {
         // Request from Flask
-        setCurrentTime(data.time);
+        setCurrentTime(timeConverter(data.time));
       });
   }, []);
 
 
   useEffect(() => {
-    fetch("/recordSubvocalization/")
+    fetch(`/recordSubvocalization/?questionid=${responseID}`)
       .then((res) => res.json())
       .then((data) => {
         // Request from Flask
@@ -56,8 +94,6 @@ function Display() {
       });
   }, []);
 
-
-
   return (
     <Container fluid className="main-content-container px-4">
       <div className="introDisplay">
@@ -66,9 +102,9 @@ function Display() {
         </h2>
         <p style={{ paddingLeft: "55px" }}>
           {" "}
-          
-        </p>
 
+        </p>
+        <p style={{ paddingLeft: "25px" }}>
         <a
           class="button"
           href="#popupDisplay"
@@ -76,6 +112,7 @@ function Display() {
         >
           Start
         </a>
+        </p>
       </div>
 
       <div id="popupDisplay" className="overlay1">
@@ -83,11 +120,16 @@ function Display() {
           <div className="App" id="mainDisplay">
             <header className="App-header">
               <p className="Time" id="left">
-                Current Time: {currenttime}
+                {currenttime}
                 <br />
                 Prediction: {prediction}
+                <br />
+                Accuracy: {accuracy}
+                <br />
+                id: {responseID}
               </p>
-              <br></br>
+              <br />
+              <br />
               <p className="question-pNew">{question}</p>
               {/*
               <a class="ans-yes"  href="#acc">Yes</a>
@@ -142,8 +184,16 @@ function Display() {
         <div class="popupAcc">
           <header>
             <p className="Time" id="left">
-              Current Time: {currenttime}
+              {currenttime}
+              <br />
+              Prediction: {prediction}
+              <br />
+              Accuracy: {accuracy}
+              <br />
+              id: {responseID}
             </p>
+            <br />
+            <br />
           </header>
           <a class="close" href="#">
             {" "}
