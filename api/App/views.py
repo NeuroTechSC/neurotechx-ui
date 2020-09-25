@@ -9,6 +9,7 @@ import pandas as pd
 from flask import Blueprint, send_file, json, request
 from sqlalchemy import func
 
+from App import dataProcessing, ml, hardware
 from App.models import db, Trial, ModelResponse
 from App.service import calculate_accuracy
 
@@ -17,6 +18,7 @@ import App.dataProcessing
 import App.ml
 
 blue = Blueprint('blue', __name__)
+
 
 def init_blueprint(app):
     app.register_blueprint(blueprint=blue)
@@ -139,6 +141,23 @@ def record_answer():
         return 'fail', 404
     return 'success'
 
+
+@blue.route('/recordCorrection/')
+def record_correction():
+    q_id = request.args.get('questionid')
+    correction = request.args.get('correction')  # True or False
+    print(eval(correction))
+    if correction and q_id:
+        db.session.query(ModelResponse).filter(ModelResponse.response_id == q_id).update(
+            {'correct': eval(correction)}
+        )
+        db.session.commit()
+        return 'success'
+    else:
+        return 'fail', 404
+    # return 'aaa'
+
+
 @blue.route('/getQuestion/')
 def get_question_byid():
     q_id = request.args.get('questionid')
@@ -177,6 +196,9 @@ def record_Subvocalization():
     # ML Model return 1 or 0
     prediction = ml.predict(chunk, './ml_model.pt')
     print(prediction)
-
+    trail_id = request.args.get('questionid')
+    db.session.query(ModelResponse).filter(ModelResponse.response_id == trail_id).update(
+        {"expected_response": prediction})
+    db.session.commit()
     # Return yes or no ...
     return json.jsonify({'prediction': prediction})
