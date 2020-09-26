@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container,Button, Row, Col, Card, CardHeader, CardBody } from "shards-react";
+import { Container, Row, Col, Card, CardHeader, CardBody } from "shards-react";
 
 import PageTitle from "../components/common/PageTitle";
 
@@ -9,7 +9,6 @@ function Tables() {
 
   const [id, setId] = useState("Loading...");
   const [question, setQuestion] = useState("Loading...");
-  const [response, setResponse] = useState("Loading...");
   const [correct, setCorrect] = useState("Loading...");
   const [time, setTime] = useState("Loading...");
   const [expected, setExpected] = useState("Loading...");
@@ -35,7 +34,6 @@ function timeConverter(UNIX_timestamp){
         // Request from Flask
         setId(data.slice(-1)[0].id);
         setQuestion(data.slice(-1)[0].question);
-        setResponse(data.slice(-1)[0].recordedResponse);
         setCorrect(data.slice(-1)[0].correct);
         setTime(timeConverter(data.slice(-1)[0].time));
         setExpected(data.slice(-1)[0].expectedResponse)
