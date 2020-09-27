@@ -6,6 +6,21 @@ from App.ext import db
 class User(db.Model):
     user_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(16))
+    email = db.Column(db.String(320), primary_key=True)
+    password = db.Column(db.String(30))
+    authenticated = db.Column(db.Boolean, default=False)
+
+    def is_active(self):
+        return True
+
+    def is_anonymous(self):
+        return False
+
+    def is_authenticated(self):
+        return self.authenticated
+
+    def get_id(self):
+        return self.user_id
     pass
 
 
