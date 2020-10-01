@@ -4,9 +4,12 @@ import "./Display.css";
 
 function Display() {
   const [question, setQuestion] = useState("Loading...");
+  const [responseID, setResponseID] = useState("Loading...");
   const [currenttime, setCurrentTime] = useState("Loading...");
   const [convert, setConvert] = useState("Loading...");
   const [prevQuestion, getPrevQuestion] = useState("Loading...");
+  const [prediction, setPrediction] = useState("Loading...");
+  const [accuracy, setAccuracy] = useState("Loading...");
 
   function refreshPage() {
     window.location.reload(false);
@@ -25,6 +28,47 @@ function Display() {
     timeleft -= 1;
   }, 1000);
 
+  function highlight() {}
+
+  function sleep(milliseconds) {
+    const date = Date.now();
+    let currentDate = null;
+    do {
+      currentDate = Date.now();
+    } while (currentDate - date < milliseconds);
+  }
+
+  function timeConverter(UNIX_timestamp) {
+    var a = new Date(UNIX_timestamp * 1000);
+    var months = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+    var year = a.getFullYear();
+    var month = months[a.getMonth()];
+    var date = a.getDate();
+    var hour = a.getHours();
+    var min = a.getMinutes();
+    var sec = a.getSeconds();
+    var time =
+      date + " " + month + " " + year + " " + hour + ":" + min + ":" + sec;
+    return time;
+  }
+
+  function round(value, decimals) {
+    return Number(Math.round(value + "e" + decimals) + "e-" + decimals);
+  }
+
   useEffect(() => {
     fetch("/time/")
       .then((res) => res.json())
@@ -37,6 +81,17 @@ function Display() {
       .then((data) => {
         // Request from Flask
         setQuestion(data[0].question);
+        setResponseID(data[1].responseID);
+        console.log(responseID);
+      });
+  }, []);
+
+  useEffect(() => {
+    fetch("/getAccuracy/")
+      .then((res) => res.json())
+      .then((data) => {
+        // Request from Flask
+        setAccuracy(round(data.accuracy, 3));
       });
   }, []);
 
@@ -45,7 +100,16 @@ function Display() {
       .then((res) => res.json())
       .then((data) => {
         // Request from Flask
-        setCurrentTime(data.time);
+        setCurrentTime(timeConverter(data.time));
+      });
+  }, []);
+
+  useEffect(() => {
+    fetch(`/recordSubvocalization/?questionid=${responseID}`)
+      .then((res) => res.json())
+      .then((data) => {
+        // Request from Flask
+        setPrediction(data.prediction);
       });
   }, []);
 
@@ -64,27 +128,16 @@ function Display() {
         <h2 style={{ color: "#96C0CE", paddingLeft: "25px" }}>
           Subvocal Recognition
         </h2>
-
-        <p style={{ paddingLeft: "55px" }}>
-          {" "}
-          words words words words words words words words words words words
-          words words words words words words words words words words words
-          words words words words words words words words words words words
-          words words words words words words words words words words words
-          words words words words words words words words words words words
-          words words words words words words words words words words words
-          words words words words words words words words words words words
-          words words words words words words words words words words words
-          words words words words words words words
+        <p style={{ paddingLeft: "55px" }}> </p>
+        <p style={{ paddingLeft: "25px" }}>
+          <a
+            class="button"
+            href="#popupDisplay"
+            style={{ textDecoration: "none" }}
+          >
+            Start
+          </a>
         </p>
-
-        <a
-          class="button"
-          href="#popupDisplay"
-          style={{ textDecoration: "none" }}
-        >
-          Start
-        </a>
       </div>
 
       <div id="popupDisplay" className="overlay1">
@@ -92,41 +145,26 @@ function Display() {
           <div className="App" id="mainDisplay">
             <header className="App-header">
               <div className="headerPopup">
-                <p className="Time">Current Time: {currenttime}</p>
-                <br></br>
-                <br></br>
-                <br></br>
-                <div id="countdown"></div>
+                <p className="Time">
+                  {currenttime}
+                  <br />
+                  <div id="countdown" style={{ color: "#EAC435" }}></div>
+                  <br />
+                  <br />
+                </p>
+                <br />
+                <br />
               </div>
-              <br></br>
               <div class="questionaire">
                 <p className="question-pNew">{question}</p>
-                {/*
-              <a class="ans-yes"  href="#acc">Yes</a>
-              <a class="ans-no" href="#acc">No</a>
-              */}
 
-                <button className="ans-yesNew" onClick="#acc">
-                  Yes
-                </button>
+                <button className="ans-yesNew">Yes</button>
                 <br></br>
-                <button className="ans-noNew" href="#acc">
-                  No
-                </button>
+                <button className="ans-noNew">No</button>
               </div>
-              {/*
-              <a className="ans-yesNew" href="#acc">
-                Yes
-              </a>
-              <br></br>
-              <br></br>
-              <a className="ans-noNew" href="#acc">
-                No &nbsp;
-              </a>
-              */}
+
               <div class=".listContainer"></div>
             </header>
-            {/*id="acc" class="overlay" ....class="popupAcc"*/}
 
             <div class="accuracy">
               <a class="close" href="#">
@@ -135,19 +173,48 @@ function Display() {
               </a>
               <div>
                 <h1 className="accQ"> Was it accurate?</h1>
-                <a className="ans-yesNew" href="#popupDisplay">
+                {/*<a className="ans-yesNew" href="#popupDisplay">
                   Yes
                 </a>
                 <br></br>
                 <br></br>
                 <a className="ans-noNew" href="#popupDisplay">
                   No &nbsp;
-                </a>
+  </a>*/}
+                <button className="ans-yesNew" href="#popupDisplay">
+                  Yes
+                </button>
+                <button className="ans-noNew" href="#popupDisplay">
+                  No
+                </button>
+                <br />
+                <br />
+                <br />
+                <br />
+                <div>
+                  <h3
+                    style={{
+                      color: "white",
+                      borderTop: "2px solid #EAC435",
+                      paddingTop: "7%",
+                    }}
+                  >
+                    Other Information
+                  </h3>
+                  <p style={{ color: "whitesmoke" }}>
+                    Prediction: {prediction}
+                    <br />
+                    Accuracy: {accuracy}
+                    <br />
+                    id: {responseID}
+                  </p>
+                </div>
               </div>
             </div>
 
             <div id="next">
               <div class="footerPopup">
+                <br />
                 <Button
                   theme="primary"
                   onClick={refreshPage}
@@ -162,12 +229,9 @@ function Display() {
                   </Button>
                 </form>
               </div>
-              <a class="close" href="#">
-                {" "}
-                &times;
-              </a>
             </div>
-          </div>
+          </div>{" "}
+          {/**jasgfjahsfg */}
         </div>
       </div>
     </Container>

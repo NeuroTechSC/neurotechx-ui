@@ -9,7 +9,13 @@ import pandas as pd
 from flask import Blueprint, send_file, json, request
 from sqlalchemy import func
 
+from App import dataProcessing, ml, hardware
 from App.models import db, Trial, ModelResponse
+from App.service import calculate_accuracy
+
+import App.hardware
+import App.dataProcessing
+import App.ml
 
 blue = Blueprint('blue', __name__)
 
@@ -31,8 +37,9 @@ def get_random_question():
     db.session.add(m)
     db.session.commit()
     id = db.session.query(func.max(ModelResponse.response_id)).one()[0]
+    ID = int(id)
     # print(id)
-    return json.jsonify([{'question': trial.question}, {'responseID': id}])
+    return json.jsonify([{'question': trial.question}, {'responseID': ID}])
 
 
 @blue.route('/convertData')
@@ -121,7 +128,7 @@ def get_prev_question():
     return json.jsonify(ret)
 
 
-@blue.route('/recordAnswer/')
+@blue.route('/recordAnswer/', methods=['POST', 'GET'])
 def record_answer():
     qaram = request.args
     trail_id = qaram.get('questionid')
@@ -134,3 +141,67 @@ def record_answer():
     else:
         return 'fail', 404
     return 'success'
+
+
+@blue.route('/recordCorrection/',methods=['POST', 'GET'])
+def record_correction():
+    q_id = request.args.get('questionid')
+    correction = request.args.get('correction')  # True or False
+    print(eval(correction))
+    if correction and q_id:
+        db.session.query(ModelResponse).filter(ModelResponse.response_id == q_id).update(
+            {'correct': eval(correction)}
+        )
+        db.session.commit()
+        return 'success'
+    else:
+        return 'fail', 404
+    # return 'aaa'
+
+
+@blue.route('/getQuestion/',methods=['POST', 'GET'])
+def get_question_byid():
+    q_id = request.args.get('questionid')
+    result = db.session.query(ModelResponse, Trial).filter(ModelResponse.trial_number == Trial.trial_id).filter(
+        ModelResponse.response_id == q_id).first()
+    if result:
+        model, trail = result
+        # print(result)
+        return json.jsonify({'id': model.response_id,
+                             'question': trail.question,
+                             'recordedResponse': model.recorded_response,
+                             'correct': model.correct,
+                             'expectedResponse': model.expected_response
+                             })
+    return 'fail', 404
+
+
+@blue.route('/getAccuracy/',methods=['POST', 'GET'])
+def get_accuracy():
+    result = calculate_accuracy()
+    return json.jsonify({'accuracy': result})
+
+
+@blue.route('/recordSubvocalization/', methods=['POST', 'GET'])
+def record_Subvocalization():
+    # # TODO: get serial port from POST
+    #
+    # # Start recording (2 second chunk..)
+    # chunk = hardware.recordData('/dev/cu.usbserial-DM02582X')
+    # print(chunk.shape)
+    #
+    # # Data Processing pipeline (2 second chunk..)
+    # chunk = dataProcessing.process(chunk)
+    # print(chunk.shape)
+    #
+    # # ML Model return 1 or 0
+    # prediction = ml.predict(chunk, './ml_model.pt')
+    # print(prediction)
+    prediction = 0
+    trail_id = request.args.get('questionid')
+    print(trail_id)
+    db.session.query(ModelResponse).filter(ModelResponse.response_id == trail_id).update(
+        {"expected_response": prediction})
+    db.session.commit()
+    # Return yes or no ...
+    return json.jsonify({'prediction': prediction})
