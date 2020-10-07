@@ -20,10 +20,10 @@ function Display() {
   var downloadTimer = setInterval(function() {
     if (timeleft <= 0) {
       clearInterval(downloadTimer);
-      document.getElementById("countdown").innerHTML = "Countdown: Finished";
+      document.getElementById("countdown").innerHTML = "Countdown: 0 seconds";
     } else {
       document.getElementById("countdown").innerHTML =
-        "Countdown: " + timeleft + " seconds remaining";
+        "Countdown: " + timeleft + " seconds";
     }
     timeleft -= 1;
   }, 1000);
@@ -199,7 +199,6 @@ function Display() {
                       paddingTop: "7%",
                     }}
                   >
-                    Other Information
                   </h3>
                   <p style={{ color: "whitesmoke" }}>
                     Prediction: {prediction}
