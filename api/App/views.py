@@ -143,7 +143,7 @@ def record_answer():
     return 'success'
 
 
-@blue.route('/recordCorrection/',methods=['POST', 'GET'])
+@blue.route('/recordCorrection/', methods=['POST', 'GET'])
 def record_correction():
     q_id = request.args.get('questionid')
     correction = request.args.get('correction')  # True or False
@@ -159,7 +159,7 @@ def record_correction():
     # return 'aaa'
 
 
-@blue.route('/getQuestion/',methods=['POST', 'GET'])
+@blue.route('/getQuestion/', methods=['POST', 'GET'])
 def get_question_byid():
     q_id = request.args.get('questionid')
     result = db.session.query(ModelResponse, Trial).filter(ModelResponse.trial_number == Trial.trial_id).filter(
@@ -176,26 +176,38 @@ def get_question_byid():
     return 'fail', 404
 
 
-@blue.route('/getAccuracy/',methods=['POST', 'GET'])
+@blue.route('/getAccuracy/', methods=['POST', 'GET'])
 def get_accuracy():
     result = calculate_accuracy()
     return json.jsonify({'accuracy': result})
 
 
+@blue.route("/InsertAnswer/<response_id>/")
+def insert_answer(response_id):
+    print(response_id)
+    answer = request.args.get('answer')
+    db.session.query(ModelResponse).filter(ModelResponse.response_id == response_id).update(
+        {"recorded_response": answer})
+    db.session.commit()
+    print(answer)
+    print("aaaa")
+    return {"success": 200}
+
+
 @blue.route('/recordSubvocalization/', methods=['POST', 'GET'])
 def record_Subvocalization():
-    # # TODO: get serial port from POST
-    #
-    # # Start recording (2 second chunk..)
-    chunk = hardware.recordData('/dev/cu.usbserial-DM02582X')
-    print(chunk.shape)
-    #
-    # # Data Processing pipeline (2 second chunk..)
-    chunk = dataProcessing.process(chunk)
-    print(chunk.shape)
-    #
-    # # ML Model return 1 or 0
-    prediction = ml.predict(chunk, './ml_model.pt')
+    # # # TODO: get serial port from POST
+    # #
+    # # # Start recording (2 second chunk..)
+    # chunk = hardware.recordData('/dev/cu.usbserial-DM02582X')
+    # print(chunk.shape)
+    # #
+    # # # Data Processing pipeline (2 second chunk..)
+    # chunk = dataProcessing.process(chunk)
+    # print(chunk.shape)
+    # #
+    # # # ML Model return 1 or 0
+    prediction = "0"
     print(prediction)
     trail_id = request.args.get('questionid')
     print(trail_id)
