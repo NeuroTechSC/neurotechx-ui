@@ -11,6 +11,8 @@ function Display() {
     const [prediction, setPrediction] = useState("Loading...");
     const [accuracy, setAccuracy] = useState("Loading...");
 
+    const [port, setPort] = useState("Loading...");
+
     function refreshPage() {
         window.location.reload(false);
     }
@@ -123,6 +125,15 @@ function Display() {
             });
     }, []);
 
+    useEffect(() => {
+        fetch("/getPort/")
+            .then((res) => res.json())
+            .then((data) => {
+                // Request from Flask
+                setPort(data.port);
+            });
+        }, []);
+
     function Click(answer) {
         console.log(answer)
 
@@ -150,7 +161,6 @@ function Display() {
                     </a>
                 </p>
             </div>
-
             <div id="popupDisplay" className="overlay1">
                 <div class="popup">
                     <div className="App" id="mainDisplay">
@@ -212,6 +222,8 @@ function Display() {
                                     >
                                     </h3>
                                     <p style={{color: "whitesmoke"}}>
+                                        Port Number: {port}
+                                        <br />
                                         Prediction: {prediction}
                                         <br/>
                                         Accuracy: {accuracy}

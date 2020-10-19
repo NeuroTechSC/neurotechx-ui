@@ -7,6 +7,8 @@ import csv
 import pandas as pd
 
 from flask import Blueprint, send_file, json, request
+from flask import flash
+from flask_cors import CORS
 from sqlalchemy import func
 
 from App import dataProcessing, ml, hardware
@@ -16,6 +18,8 @@ from App.service import calculate_accuracy
 import App.hardware
 import App.dataProcessing
 import App.ml
+
+PORTNUM = ""
 
 blue = Blueprint('blue', __name__)
 
@@ -193,21 +197,30 @@ def insert_answer(response_id):
     print("aaaa")
     return {"success": 200}
 
+@blue.route('/inputPort/', methods=['POST', 'GET'])
+def input_PortNum():
+    global PORTNUM
+    PORTNUM = request.args.get('PortNum')
+    print("Port Number: " + PORTNUM)
+    return json.jsonify({'PortNum' :PORTNUM}) 
+
 
 @blue.route('/recordSubvocalization/', methods=['POST', 'GET'])
 def record_Subvocalization():
-    # # # TODO: get serial port from POST
-    # #
-    # # # Start recording (2 second chunk..)
-    # chunk = hardware.recordData('/dev/cu.usbserial-DM02582X')
-    # print(chunk.shape)
+    # # TODO: get serial port from POST
+    #
+    # # Start recording (2 second chunk..)
+ 
+    chunk = hardware.recordData('/dev/cu.usbserial-DM02582X')
+    # chunk = hardware.recordData('/dev/' + PORTNUM)
+    print(chunk.shape)
     # #
     # # # Data Processing pipeline (2 second chunk..)
-    # chunk = dataProcessing.process(chunk)
-    # print(chunk.shape)
+    chunk = dataProcessing.process(chunk)
+    print(chunk.shape)
     # #
     # # # ML Model return 1 or 0
-    prediction = "0"
+    prediction = 0
     print(prediction)
     trail_id = request.args.get('questionid')
     print(trail_id)

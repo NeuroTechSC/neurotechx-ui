@@ -8,6 +8,7 @@ import { DefaultLayout } from "./layouts";
 import Display from "./views/Display";
 import BlogPosts from "./views/BlogPosts";
 import Tables from "./views/Tables";
+import PortNumber from "./views/PortNumber"
 
 export default [
   {
@@ -20,6 +21,11 @@ export default [
     path: "/Display",
     layout: DefaultLayout,
     component: Display
+  },
+  {
+    path: "/PortNumber",
+    layout: DefaultLayout,
+    component: PortNumber
   },
   {
     path: "/blog-posts",
