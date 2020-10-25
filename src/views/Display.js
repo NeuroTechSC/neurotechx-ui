@@ -210,8 +210,6 @@ function Display() {
                                 </button>
                                 <br/>
                                 <br/>
-                                <br/>
-                                <br/>
                                 <div>
                                     <h3
                                         style={{

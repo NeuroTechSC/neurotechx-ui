@@ -11,10 +11,6 @@ python api/api.py runserver -d -r
 ```
 ### After changing database
 
-
-
-
-=======
 yarn start-api
 ```
 For Windows Powershell:

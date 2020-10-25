@@ -6,11 +6,10 @@ from datetime import datetime
 import csv
 import pandas as pd
 
-from flask import Blueprint, send_file, json, request
+from flask import Blueprint, send_file, json, request, current_app
 from flask import flash
-from flask_cors import CORS
+# from flask_cors import CORS
 from sqlalchemy import func
-
 from App import dataProcessing, ml, hardware
 from App.models import db, Trial, ModelResponse
 from App.service import calculate_accuracy
@@ -19,7 +18,7 @@ import App.hardware
 import App.dataProcessing
 import App.ml
 
-PORTNUM = ""
+# PORTNUM = ""
 
 blue = Blueprint('blue', __name__)
 
@@ -34,9 +33,9 @@ def get_random_question():
     # ModelResponse = ModelResponse()
     m = ModelResponse()
     m.trial_number = trial.trial_id
-    m.expected_response = '1'
+    m.expected_response = m.expected_response
     m.recorded_response = '1'
-    m.correct = False
+    m.correct = m.correct
     m.user_id = 0
     db.session.add(m)
     db.session.commit()
@@ -115,6 +114,7 @@ def insert_question():
 
 @blue.route('/getPrevQuestion/')
 def get_prev_question():
+    print(current_app.config['PORTNUMBER'])
     ret = []
     result = db.session.query(ModelResponse, Trial).join(Trial, ModelResponse.trial_number == Trial.trial_id).all()
     for r in result:
@@ -182,6 +182,9 @@ def get_question_byid():
 
 @blue.route('/getAccuracy/', methods=['POST', 'GET'])
 def get_accuracy():
+    port_number = current_app.config['PORTNUMBER']
+    current_app.config['PORTNUMBER'] = "11111"
+    print(port_number)
     result = calculate_accuracy()
     return json.jsonify({'accuracy': result})
 
@@ -197,29 +200,34 @@ def insert_answer(response_id):
     print("aaaa")
     return {"success": 200}
 
+
 @blue.route('/inputPort/', methods=['POST', 'GET'])
 def input_PortNum():
-    global PORTNUM
     PORTNUM = request.args.get('PortNum')
-    print("Port Number: " + PORTNUM)
-    return json.jsonify({'PortNum' :PORTNUM}) 
+    current_app.config['PORTNUMBER'] = PORTNUM
+    print("Port Number: " + current_app.config['PORTNUMBER'])
+    return json.jsonify({'PortNum': PORTNUM})
 
+@blue.route('/getPort/', methods=['POST', 'GET'])
+def get_PortNum():
+    PORTNUM = current_app.config['PORTNUMBER']
+    return json.jsonify({'PortNum': PORTNUM})
 
 @blue.route('/recordSubvocalization/', methods=['POST', 'GET'])
 def record_Subvocalization():
     # # TODO: get serial port from POST
     #
     # # Start recording (2 second chunk..)
- 
-    chunk = hardware.recordData('/dev/cu.usbserial-DM02582X')
-    # chunk = hardware.recordData('/dev/' + PORTNUM)
-    print(chunk.shape)
-    # #
-    # # # Data Processing pipeline (2 second chunk..)
-    chunk = dataProcessing.process(chunk)
-    print(chunk.shape)
-    # #
-    # # # ML Model return 1 or 0
+    port_number = current_app.config['PORTNUMBER']
+    # chunk = hardware.recordData(port_number)
+    # # chunk = hardware.recordData('/dev/' + PORTNUM)
+    # print(chunk.shape)
+    # # #
+    # # # # Data Processing pipeline (2 second chunk..)
+    # chunk = dataProcessing.process(chunk)
+    # print(chunk.shape)
+    # # #
+    # # # # ML Model return 1 or 0
     prediction = 0
     print(prediction)
     trail_id = request.args.get('questionid')

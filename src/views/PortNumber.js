@@ -1,5 +1,4 @@
 import React from "react";
-
 class PortNumber extends React.Component {
   constructor(props) {
     super(props);
@@ -14,16 +13,7 @@ class PortNumber extends React.Component {
   }
 
   handleSubmit(event) {
-    console.log("making request")
-    fetch('/inputPort/')
-      .then(response => {
-        console.log(response)
-        return response.json()
-      })
-      .then(json => {
-      console.log=(json)
-      this.setState({PortNum: json[0]})
-      })
+    console.log(this.state.PortNum)
   }
 
   render() {
@@ -36,7 +26,7 @@ class PortNumber extends React.Component {
           <input type="submit" onChange={this.handleChange} value={this.state.value} />
         </label>
       </form>
-        <label>  PORTNUM : {this.state.PORTNUM} </label>
+        <label>  PORTNUM : {this.state.PortNum} </label>
       </div>
     );
   }

@@ -16,6 +16,7 @@ class Config:
     DEBUG = False
     TESTING = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    PORTNUMBER = "/dev/cu.usbserial-DM02582X"
 
 
 class DevelopConfig(Config):
@@ -30,6 +31,7 @@ class DevelopConfig(Config):
         'PORT': '',
         'NAME': '../database.db'
     }
+    PORTNUMBER = "/dev/cu.usbserial-DM02582X"
     SQLALCHEMY_DATABASE_URI = get_db_uri(DATABSE)
 
 
