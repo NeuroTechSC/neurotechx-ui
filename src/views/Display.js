@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import ReactDOM from 'react-dom';
 import {Container, Button} from "shards-react";
 import "./Display.css";
 
@@ -29,6 +30,12 @@ function Display() {
         }
         timeleft -= 1;
     }, 1000);
+
+
+        function changeText(pred) {
+
+
+        }
 
     function highlight() {
     }
@@ -141,7 +148,6 @@ function Display() {
             .then((res) => res.json())
         console.log("aaa")
         console.log(responseID)
-
     }
 
     return (
@@ -166,22 +172,21 @@ function Display() {
                     <div className="App" id="mainDisplay">
                         <header className="App-header">
                             <div className="headerPopup">
-                                <p className="Time">
-                                    {currenttime}
-                                    <br/>
+                                    <div style={{color: "#EAC435"}}>{currenttime}</div>
                                     <div id="countdown" style={{color: "#EAC435"}}></div>
                                     <br/>
-                                    <br/>
-                                </p>
                                 <br/>
                                 <br/>
                             </div>
                             <div class="questionaire">
                                 <p className="question-pNew">{question}</p>
 
-                                <button className="ans-yesNew" onClick={Click.bind(this, "yes")}>Yes</button>
+                                {/*<button className="ans-yesNew" onClick={Click.bind(this, "yes")}>Yes</button>
                                 <br></br>
-                                <button className="ans-noNew" onClick={Click.bind(this, "no")}>No</button>
+                                <button className="ans-noNew" onClick={Click.bind(this, "no")}>No</button>*/}
+                                    <div className="question-pNew" id = "prediction">Prediction: {prediction}</div>
+
+
                             </div>
 
                             <div class=".listContainer"></div>
@@ -195,13 +200,13 @@ function Display() {
                             <div>
                                 <h1 className="accQ"> Was it accurate?</h1>
                                 {/*<a className="ans-yesNew" href="#popupDisplay">
-                  Yes
-                </a>
-                <br></br>
-                <br></br>
-                <a className="ans-noNew" href="#popupDisplay">
-                  No &nbsp;
-  </a>*/}
+                                                Yes
+                                              </a>
+                                              <br></br>
+                                              <br></br>
+                                              <a className="ans-noNew" href="#popupDisplay">
+                                                No &nbsp;
+                                </a>*/}
                                 <button className="ans-yesNew" href="#popupDisplay" onClick={Click}>
                                     Yes
                                 </button>

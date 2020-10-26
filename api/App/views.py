@@ -229,11 +229,11 @@ def record_Subvocalization():
     # # #
     # # # # ML Model return 1 or 0
     prediction = 0
-    print(prediction)
     trail_id = request.args.get('questionid')
     print(trail_id)
     db.session.query(ModelResponse).filter(ModelResponse.response_id == trail_id).update(
         {"expected_response": prediction})
     db.session.commit()
     # Return yes or no ...
+    print("Prediction: " + str(prediction))
     return json.jsonify({'prediction': prediction})
