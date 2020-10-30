@@ -81,37 +81,6 @@ def create_db():
     return 'success'
 
 
-@blue.route('/addquestion/')
-def insert_question():
-    ran = ['Do you believe in ghosts?',
-           'Have you ever seen a UFO?',
-           'Can cats jump six times their length?',
-           'Do you like chocolate milkshakes?',
-           'Were you in the swamp yesterday?',
-           'Did you see Bigfoot?',
-           'Can you see the moon?',
-           'Do you know how to swim?',
-           'Can you play poker?',
-           'Do you have a twin?',
-           'Were you born in the summer?',
-           'Do you believe in Santa Claus?',
-           'Can you make yourself disappear?',
-           'Were you on Survivor last year?',
-           'Do you know the Schrödinger equation of quantum theory?',
-           'Do mice really eat cheese?',
-           'Is your shoe size 14?',
-           'Can you see out the back of your head?',
-           'Are Martians really green?',
-           'Have elves always live at the North Pole?']
-    for question in ran:
-        q = Trial()
-        q.question = question
-        q.word = 'y/n'
-        db.session.add(q)
-        db.session.commit()
-    return 'add success'
-
-
 @blue.route('/getPrevQuestion/')
 def get_prev_question():
     print(current_app.config['PORTNUMBER'])
@@ -182,16 +151,26 @@ def get_question_byid():
 
 @blue.route('/getAccuracy/', methods=['POST', 'GET'])
 def get_accuracy():
-    port_number = current_app.config['PORTNUMBER']
-    current_app.config['PORTNUMBER'] = "11111"
-    print(port_number)
     result = calculate_accuracy()
     return json.jsonify({'accuracy': result})
 
 
+@blue.route("/Insert-Correction/<response_id>/")
+def update_correct(response_id):
+    answer = request.args.get('answer')
+    print(answer)
+
+    print(bool(answer))
+    # return answer
+    db.session.query(ModelResponse).filter(ModelResponse.response_id == response_id).update(
+        {"correct": bool(answer)})
+    db.session.commit()
+    return {"success": 200}
+
+
 @blue.route("/InsertAnswer/<response_id>/")
 def insert_answer(response_id):
-    print(response_id)
+    # print(response_id)
     answer = request.args.get('answer')
     db.session.query(ModelResponse).filter(ModelResponse.response_id == response_id).update(
         {"recorded_response": answer})
@@ -208,10 +187,13 @@ def input_PortNum():
     print("Port Number: " + current_app.config['PORTNUMBER'])
     return json.jsonify({'PortNum': PORTNUM})
 
+
 @blue.route('/getPort/', methods=['POST', 'GET'])
 def get_PortNum():
     PORTNUM = current_app.config['PORTNUMBER']
+    print(PORTNUM);
     return json.jsonify({'PortNum': PORTNUM})
+
 
 @blue.route('/recordSubvocalization/', methods=['POST', 'GET'])
 def record_Subvocalization():
