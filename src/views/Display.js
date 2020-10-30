@@ -137,17 +137,18 @@ function Display() {
             .then((res) => res.json())
             .then((data) => {
                 // Request from Flask
-                setPort(data.port);
+                console.log(data.PortNum);
+                setPort(data.PortNum);
             });
         }, []);
 
     function Click(answer) {
         console.log(answer)
 
-        fetch("/InsertAnswer/"+responseID+"/?answer="+answer)
-            .then((res) => res.json())
-        console.log("aaa")
-        console.log(responseID)
+        fetch("/Insert-Correction/"+responseID+"/?answer="+answer)
+            // .then((res) => res.json())
+        console.log(answer)
+        // console.log(responseID)
     }
 
     return (
@@ -207,10 +208,10 @@ function Display() {
                                               <a className="ans-noNew" href="#popupDisplay">
                                                 No &nbsp;
                                 </a>*/}
-                                <button className="ans-yesNew" href="#popupDisplay" onClick={Click}>
+                                <button className="ans-yesNew" href="#popupDisplay" onClick={Click.bind(this, "True")}>
                                     Yes
                                 </button>
-                                <button className="ans-noNew" href="#popupDisplay">
+                                <button className="ans-noNew" href="#popupDisplay" onClick={Click.bind(this, "")}>
                                     No
                                 </button>
                                 <br/>

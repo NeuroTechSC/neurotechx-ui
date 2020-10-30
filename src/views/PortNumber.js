@@ -14,6 +14,7 @@ class PortNumber extends React.Component {
 
   handleSubmit(event) {
     console.log(this.state.PortNum)
+    return false;
   }
 
   render() {
