@@ -367,6 +367,10 @@
   border-radius: 35px;
   /*background-color: whitesmoke;*/
 }
+#timer {
+  float: left;
+  padding: 0.5% 0% 0% 1%;
+}
 
 #countdown {
   float: left;

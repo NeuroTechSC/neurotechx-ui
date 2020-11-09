@@ -1,7 +1,9 @@
-import React, {useEffect, useState} from "react";
+import React, {Component, useEffect, useState} from "react";
 import ReactDOM from 'react-dom';
 import {Container, Button} from "shards-react";
+
 import "./Display.css";
+
 
 function Display() {
     const [question, setQuestion] = useState("Loading...");
@@ -14,30 +16,42 @@ function Display() {
 
     const [port, setPort] = useState("Loading...");
 
+    //
+    // function setVal() {
+    //       // axios.post('http://localhost:5000/recordSubvocalization/', { name: 'predictionVal' })
+    //       //   .then((res) => res.json())
+    //       //           .then((data) => {
+    //       //               // Request from Flask
+    //       //               setPrediction(data.prediction);
+    //       //               console.log(prediction);
+    //       //           });
+    //
+    //                 fetch(`/recordSubvocalization/?questionid=${responseID}`)
+    //                     .then((res) => res.json())
+    //                     .then((data) => {
+    //                         // Request from Flask
+    //                         setPrediction(data.prediction);
+    //                     });
+    // }
+
+
     function refreshPage() {
         window.location.reload(false);
     }
 
-    //Countdown Timer
-    var timeleft = 2;
-    var downloadTimer = setInterval(function () {
-        if (timeleft <= 0) {
-            clearInterval(downloadTimer);
-            document.getElementById("countdown").innerHTML = "Countdown: 0 seconds";
-        } else {
-            document.getElementById("countdown").innerHTML =
-                "Countdown: " + timeleft + " seconds";
-        }
-        timeleft -= 1;
-    }, 1000);
-
-
-        function changeText(pred) {
-
-
-        }
-
-    function highlight() {
+    function start() {
+      //Countdown Timer
+      var timeleft = 2.0;
+      var downloadTimer = setInterval(function () {
+          if (timeleft <= 0) {
+              clearInterval(downloadTimer);
+              document.getElementById("countdown").innerHTML = "Countdown: 0 seconds";
+          } else {
+              document.getElementById("countdown").innerHTML =
+                  "Countdown: " + timeleft + " seconds";
+          }
+          timeleft -= 1;
+      }, 1000);
     }
 
     function sleep(milliseconds) {
@@ -168,16 +182,33 @@ function Display() {
                     </a>
                 </p>
             </div>
+
             <div id="popupDisplay" className="overlay1">
                 <div class="popup">
                     <div className="App" id="mainDisplay">
                         <header className="App-header">
+
                             <div className="headerPopup">
                                     <div style={{color: "#EAC435"}}>{currenttime}</div>
-                                    <div id="countdown" style={{color: "#EAC435"}}></div>
+
+                                    <div id="countdown" style={{color: "#EAC435"}}>Countdown:</div>
+
                                     <br/>
+                                    <br/>
+
+                                      <Button type="submit"
+                                              id='timer'
+                                              theme="primary"
+                                              onClick={() => {
+                                                        start();
+                                                      }}
+                                              >
+                                          Start Time
+                                       </Button>
+
                                 <br/>
                                 <br/>
+
                             </div>
                             <div class="questionaire">
                                 <p className="question-pNew">{question}</p>
