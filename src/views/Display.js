@@ -16,23 +16,15 @@ function Display() {
 
     const [port, setPort] = useState("Loading...");
 
-    //
-    // function setVal() {
-    //       // axios.post('http://localhost:5000/recordSubvocalization/', { name: 'predictionVal' })
-    //       //   .then((res) => res.json())
-    //       //           .then((data) => {
-    //       //               // Request from Flask
-    //       //               setPrediction(data.prediction);
-    //       //               console.log(prediction);
-    //       //           });
-    //
-    //                 fetch(`/recordSubvocalization/?questionid=${responseID}`)
-    //                     .then((res) => res.json())
-    //                     .then((data) => {
-    //                         // Request from Flask
-    //                         setPrediction(data.prediction);
-    //                     });
-    // }
+
+    function setVal() {
+      fetch(`/recordSubvocalization/?questionid=${responseID}`)
+      .then((res) => res.json())
+      .then((data) => {
+      // Request from Flask
+      setPrediction(data.prediction);
+      });
+    }
 
 
     function refreshPage() {
@@ -128,14 +120,14 @@ function Display() {
             });
     }, []);
 
-    useEffect(() => {
-        fetch(`/recordSubvocalization/?questionid=${responseID}`)
-            .then((res) => res.json())
-            .then((data) => {
-                // Request from Flask
-                setPrediction(data.prediction);
-            });
-    }, []);
+    // useEffect(() => {
+    //     fetch(`/recordSubvocalization/?questionid=${responseID}`)
+    //         .then((res) => res.json())
+    //         .then((data) => {
+    //             // Request from Flask
+    //             setPrediction(data.prediction);
+    //         });
+    // }, []);
 
     useEffect(() => {
         fetch("/convertData")
@@ -200,7 +192,8 @@ function Display() {
                                               id='timer'
                                               theme="primary"
                                               onClick={() => {
-                                                        start();
+                                                        setVal(); // hardware/ml
+                                                        start();  // start countdown
                                                       }}
                                               >
                                           Start Time
