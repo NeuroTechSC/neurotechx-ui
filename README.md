@@ -1,3 +1,51 @@
+# Neurotechx
+<!-- TABLE OF CONTENTS -->
+## Table of Contents
+
+* [About the Project](#about-the-project)
+  * [Technologies](#technologies)
+  * [Prerequisites](#prerequisites)
+  * [Installation](#installation)
+* [Usage](#usage)
+* [License](#license)
+* [Contact](#contact)
+* [Sources](#acknowledgements)
+
+
+
+<!-- ABOUT THE PROJECT -->
+## About The Project
+![About The Project](UI.png)
+
+<!-- TECHNOLOGIES -->
+### Technologies
+
+<!-- INSTALLATION -->
+### Installation
+
+
+
+
+<!-- USAGE EXAMPLES -->
+## Usage
+
+
+
+
+<!-- LICENSE -->
+## License
+
+
+
+<!-- CONTACT -->
+## Contact
+
+
+
+
+<!-- SOURCES -->
+## Sources
+
 <p align="center">
 <a href="https://designrevision.com/downloads/shards-dashboard-lite-react/">
 <img src="assets/preview.png" width="250" />
@@ -54,7 +102,7 @@ A free React admin dashboard template pack featuring a modern design system <br 
 - This project is bootstrapped using [Create React App](https://github.com/facebook/create-react-app).
 - **Flux** is used for state management and all Flux specific files are located inside `src/flux`. Transitioning to a more robust solution such as Redux is also fairly simple.
 - All primary templates are located inside `src/views`.
-- There is only one single layout defined (Default) inside `src/layouts`, however, the current structure provides an easy way of extending the UI kit. 
+- There is only one single layout defined (Default) inside `src/layouts`, however, the current structure provides an easy way of extending the UI kit.
 - The `src/components` directory hosts all template-specific subcomponents in their own subdirectory.
 - The layout styles inherited from Shards Dashboard are pulled in from the `src/shards-dashboard` submodule inside `src/App.js`.
 - Other extra styles specific to the libraries used are located inside `src/assets`.

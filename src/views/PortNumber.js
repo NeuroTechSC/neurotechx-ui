@@ -27,7 +27,6 @@ class PortNumber extends React.Component {
           <input type="submit" onChange={this.handleChange} value={this.state.value} />
         </label>
       </form>
-        <label>  PORTNUM : {this.state.PortNum} </label>
       </div>
     );
   }

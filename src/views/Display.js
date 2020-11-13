@@ -11,11 +11,10 @@ function Display() {
     const [currenttime, setCurrentTime] = useState("Loading...");
     const [convert, setConvert] = useState("Loading...");
     const [prevQuestion, getPrevQuestion] = useState("Loading...");
-    const [prediction, setPrediction] = useState("Loading...");
+    const [prediction, setPrediction] = useState("Press Start Time to Begin");
     const [accuracy, setAccuracy] = useState("Loading...");
 
     const [port, setPort] = useState("Loading...");
-
 
     function setVal() {
       fetch(`/recordSubvocalization/?questionid=${responseID}`)
@@ -25,7 +24,6 @@ function Display() {
       setPrediction(data.prediction);
       });
     }
-
 
     function refreshPage() {
         window.location.reload(false);
@@ -190,7 +188,7 @@ function Display() {
 
                                       <Button type="submit"
                                               id='timer'
-                                              theme="primary"
+
                                               onClick={() => {
                                                         setVal(); // hardware/ml
                                                         start();  // start countdown
@@ -209,7 +207,7 @@ function Display() {
                                 {/*<button className="ans-yesNew" onClick={Click.bind(this, "yes")}>Yes</button>
                                 <br></br>
                                 <button className="ans-noNew" onClick={Click.bind(this, "no")}>No</button>*/}
-                                    <div className="question-pNew" id = "prediction">Prediction: {prediction}</div>
+                                    <div className="question-pNew" id = "prediction">{prediction}</div>
 
 
                             </div>
