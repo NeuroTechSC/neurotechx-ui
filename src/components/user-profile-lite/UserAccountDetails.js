@@ -28,21 +28,21 @@ const UserAccountDetails = ({ title }) => (
               <Row form>
                 {/* First Name */}
                 <Col md="6" className="form-group">
-                  <label htmlFor="feFirstName">First Name</label>
+                  <label >First Name</label>
                   <FormInput
                     id="feFirstName"
                     placeholder="First Name"
-                    value="Sierra"
+                    value="Phoebe"
                     onChange={() => {}}
                   />
                 </Col>
                 {/* Last Name */}
                 <Col md="6" className="form-group">
-                  <label htmlFor="feLastName">Last Name</label>
+                  <label >Last Name</label>
                   <FormInput
                     id="feLastName"
                     placeholder="Last Name"
-                    value="Brooks"
+                    value="Achonwa"
                     onChange={() => {}}
                   />
                 </Col>
@@ -55,7 +55,7 @@ const UserAccountDetails = ({ title }) => (
                     type="email"
                     id="feEmail"
                     placeholder="Email Address"
-                    value="sierra@example.com"
+                    value="phoebe@example.com"
                     onChange={() => {}}
                     autoComplete="email"
                   />

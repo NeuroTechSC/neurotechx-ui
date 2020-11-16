@@ -39,7 +39,7 @@ MainFooter.propTypes = {
 
 MainFooter.defaultProps = {
   contained: false,
-  copyright: "@ 2020 NeurotechX UCSC",
+  copyright: "@ 2020 NeuroTechSC",
   menuItems: [
     {
       title: "Home",

@@ -20,7 +20,7 @@ const UserDetails = ({ userDetails }) => (
           width="110"
         />
       </div>
-      <h4 className="mb-0">{userDetails.name}</h4>
+      <h4 className="mb-0">Phoebe Achonwa</h4>
       <span className="text-muted d-block mb-2">{userDetails.jobTitle}</span>
       <Button pill outline size="sm" className="mb-2">
         <i className="material-icons mr-1">person_add</i> Follow
@@ -61,7 +61,7 @@ UserDetails.propTypes = {
 
 UserDetails.defaultProps = {
   userDetails: {
-    name: "Sierra Brooks",
+    name: "Phoebe Achonwa",
     avatar: require("./../../images/avatars/0.jpg"),
     jobTitle: "Project Manager",
     performanceReportTitle: "Workload",
