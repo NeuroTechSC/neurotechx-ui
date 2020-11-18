@@ -180,7 +180,11 @@ function Display() {
                     >
                         Start
                     </a>
-                </p>
+                    
+                    {/*<a href='QuestionDisplay.js' class= "button" target ="_blank" rel="noopener noreferrer" style={{textDecoration: "none"}}>Go To </a>
+                    <a class = "button" onClick= "QuestionDisplay.js" style ={{textDecoration: "none"}} > Open</a>    onclick="location.href='QuestionDisplay.js'"
+                    <a class = "button" href= "./QuestionDisplay.js" target ="_blank" style= {{textDecoration: "none"}}> Open</a>*/}
+                  </p>
             </div>
 
             <div id="popupDisplay" className="overlay1">
@@ -189,9 +193,9 @@ function Display() {
                         <header className="App-header">
 
                             <div className="headerPopup">
-                                    <div style={{color: "#EAC435"}}>{currenttime}</div>
+                                    <div style={{color: "EAC435", fontWeight:"bold"}}>{currenttime}</div> {/* color: #EAC435*/}
 
-                                    <div id="countdown" style={{color: "#EAC435"}}>Countdown:</div>
+                                    <div id="countdown" style={{color: "EAC435", fontWeight: "bold"}}>Countdown:</div>
 
                                     <br/>
                                     <br/>
@@ -204,7 +208,10 @@ function Display() {
                                                       }}
                                               >
                                           Start Time
-                                       </Button>
+                                                    </Button>
+                                                    
+
+
 
                                 <br/>
                                 <br/>
@@ -247,11 +254,11 @@ function Display() {
                                 </button>
                                 <br/>
                                 <br/>
-                                <div>
-                                    <h3
+                                <div style={{marginBottom: "15%"}}>
+                                <h3
                                         style={{
                                             color: "white",
-                                            borderTop: "2px solid #EAC435",
+                                            borderTop: "2px solid #B9732F",
                                             paddingTop: "7%",
                                         }}
                                     >
@@ -269,7 +276,7 @@ function Display() {
                             </div>
                         </div>
 
-                        <div id="next">
+                        <div id="next" class="Next">
                             <div class="footerPopup">
                                 <br/>
                                 <Button
@@ -289,7 +296,6 @@ function Display() {
                         </div>
                     </div>
                     {" "}
-                    {/**jasgfjahsfg */}
                 </div>
             </div>
         </Container>
@@ -297,3 +303,4 @@ function Display() {
 }
 
 export default Display;
+/*#B9732F*/
