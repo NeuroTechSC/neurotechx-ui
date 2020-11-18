@@ -1,4 +1,10 @@
 import React from "react";
+
+function link_Display() {
+  const url = 'http://localhost:3000/Display#popupDisplay';
+  window.open(url, '_blank');
+}
+
 class PortNumber extends React.Component {
   constructor(props) {
     super(props);
@@ -24,10 +30,11 @@ class PortNumber extends React.Component {
         <label>
           PORT NUM :
           <input type="text" name="PortNum"/>
-          <input type="submit" onChange={this.handleChange} value={this.state.value} />
+          <button type="submit" onChange={this.handleChange} value={this.state.value} onClick={() => {
+                    link_Display();
+                  }} >Submit</button>
         </label>
       </form>
-        <label>  PORTNUM : {this.state.PortNum} </label>
       </div>
     );
   }

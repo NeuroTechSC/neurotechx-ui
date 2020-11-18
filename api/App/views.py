@@ -18,10 +18,7 @@ import App.hardware
 import App.dataProcessing
 import App.ml
 
-# PORTNUM = ""
-
 blue = Blueprint('blue', __name__)
-
 
 def init_blueprint(app):
     app.register_blueprint(blueprint=blue)
@@ -209,10 +206,11 @@ def record_Subvocalization():
     # chunk = dataProcessing.process(chunk)
     # print(chunk.shape)
     # # #
-    # # # # ML Model return 1 or 0
+    # # ML Model return 1 or 0
     # prediction = ml.predict(chunk, './ml_model.pt')
     # print(prediction)
-    prediction = 0
+    prediction = random.randint(0, 1)
+    Val = "Yes" if prediction else "No"
     trail_id = request.args.get('questionid')
     print(trail_id)
     db.session.query(ModelResponse).filter(ModelResponse.response_id == trail_id).update(
@@ -220,4 +218,4 @@ def record_Subvocalization():
     db.session.commit()
     # Return yes or no ...
     print("Prediction: " + str(prediction))
-    return json.jsonify({'prediction': prediction})
+    return json.jsonify({'prediction': Val})

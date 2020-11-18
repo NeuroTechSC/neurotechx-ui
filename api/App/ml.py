@@ -50,13 +50,12 @@ timepoints = 500
 # hyperparameters
 freq, avg1stride, avg2stride = 250, (1, 4), (1, 8)
 convstride = 1 # stride for each conv2D
-conv1_neurons = 4
-conv2_neurons = 8
-conv3_neurons = 16
-conv4_neurons = 8
+conv1_neurons = 8
+conv2_neurons = 16
+conv3_neurons = 32
+conv4_neurons = 16
 kern1size = freq // 2
 kern3size = 32
-no_splits = 4
 
 padding_needed = (kern1size - 1) / 2
 conv1outx, conv1outy = (channels, (timepoints + (2 * padding_needed) - kern1size)/convstride + 1)

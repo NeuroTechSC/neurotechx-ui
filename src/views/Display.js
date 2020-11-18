@@ -11,29 +11,19 @@ function Display() {
     const [currenttime, setCurrentTime] = useState("Loading...");
     const [convert, setConvert] = useState("Loading...");
     const [prevQuestion, getPrevQuestion] = useState("Loading...");
-    const [prediction, setPrediction] = useState("Loading...");
+    const [prediction, setPrediction] = useState("Press Start Time to Begin");
     const [accuracy, setAccuracy] = useState("Loading...");
 
     const [port, setPort] = useState("Loading...");
 
-    //
-    // function setVal() {
-    //       // axios.post('http://localhost:5000/recordSubvocalization/', { name: 'predictionVal' })
-    //       //   .then((res) => res.json())
-    //       //           .then((data) => {
-    //       //               // Request from Flask
-    //       //               setPrediction(data.prediction);
-    //       //               console.log(prediction);
-    //       //           });
-    //
-    //                 fetch(`/recordSubvocalization/?questionid=${responseID}`)
-    //                     .then((res) => res.json())
-    //                     .then((data) => {
-    //                         // Request from Flask
-    //                         setPrediction(data.prediction);
-    //                     });
-    // }
-
+    function setVal() {
+      fetch(`/recordSubvocalization/?questionid=${responseID}`)
+      .then((res) => res.json())
+      .then((data) => {
+      // Request from Flask
+      setPrediction(data.prediction);
+      });
+    }
 
     function refreshPage() {
         window.location.reload(false);
@@ -128,14 +118,14 @@ function Display() {
             });
     }, []);
 
-    useEffect(() => {
-        fetch(`/recordSubvocalization/?questionid=${responseID}`)
-            .then((res) => res.json())
-            .then((data) => {
-                // Request from Flask
-                setPrediction(data.prediction);
-            });
-    }, []);
+    // useEffect(() => {
+    //     fetch(`/recordSubvocalization/?questionid=${responseID}`)
+    //         .then((res) => res.json())
+    //         .then((data) => {
+    //             // Request from Flask
+    //             setPrediction(data.prediction);
+    //         });
+    // }, []);
 
     useEffect(() => {
         fetch("/convertData")
@@ -202,9 +192,10 @@ function Display() {
 
                                       <Button type="submit"
                                               id='timer'
-                                              theme="primary"
+
                                               onClick={() => {
-                                                        start();
+                                                        setVal(); // hardware/ml
+                                                        start();  // start countdown
                                                       }}
                                               >
                                           Start Time
@@ -223,7 +214,7 @@ function Display() {
                                 {/*<button className="ans-yesNew" onClick={Click.bind(this, "yes")}>Yes</button>
                                 <br></br>
                                 <button className="ans-noNew" onClick={Click.bind(this, "no")}>No</button>*/}
-                                    <div className="question-pNew" id = "prediction">Prediction: {prediction}</div>
+                                    <div className="question-pNew" id = "prediction">{prediction}</div>
 
 
                             </div>
