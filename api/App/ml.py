@@ -16,10 +16,7 @@ This notebook is a neural network that is based as much off of the EEGNet paper 
 
 import numpy as np
 
-# from sklearn.metrics import roc_auc_score, precision_score, recall_score, accuracy_score, classification_report
-# from sklearn.model_selection import train_test_split, KFold, RepeatedKFold, cross_val_score
 from sklearn.preprocessing import StandardScaler
-# from sklearn.utils import shuffle
 
 import torch
 import torch.nn as nn
@@ -27,8 +24,6 @@ import torch.nn.functional as F
 import torch.optim as optim
 from torch.autograd import Variable, gradcheck
 from torch.utils.data import TensorDataset, DataLoader
-
-# from matplotlib import pyplot
 
 import math
 
@@ -44,6 +39,8 @@ else:
 torch.manual_seed(3)
 torch.cuda.manual_seed(3)
 
+# number of channels and timepoints in the data
+# taken with 7 channels over 2 seconds at a sampling frequency of 250hz
 channels = 7
 timepoints = 500
 
@@ -57,6 +54,7 @@ conv4_neurons = 16
 kern1size = freq // 2
 kern3size = 32
 
+# calculations for determining the size of the flattened layer
 padding_needed = (kern1size - 1) / 2
 conv1outx, conv1outy = (channels, (timepoints + (2 * padding_needed) - kern1size)/convstride + 1)
 
@@ -70,11 +68,16 @@ conv4outx, conv4outy = (conv4outx // avg2stride[0], conv4outy // avg2stride[1])
 
 flat1_in = int(conv4outx * conv4outy * conv4_neurons)
 
+# special class of a convolution that restricts the weights
+# credit is due for this class, the solution was found on the pytorch forums
 class ConstrainedConv2d(nn.Conv2d):
     def forward(self, input):
         return F.conv2d(input, self.weight.clamp(min=-1.0, max=1.0), self.bias, self.stride,
                         self.padding, self.dilation, self.groups)
 
+# the model itself
+# a temporal convolution followed by a depthwise convolution followed by a separable convolution
+# based heavily on the EEGnet papers
 CNNPoor = nn.Sequential(
     nn.ZeroPad2d((math.floor(padding_needed), math.ceil(padding_needed), 0, 0)),
     nn.Conv2d(1, conv1_neurons, (1, kern1size), bias=False),
@@ -102,9 +105,15 @@ CNNPoor = nn.Sequential(
 
 CNNPoor = CNNPoor.to(device)
 
+# we use binary cross entropy loss and the adam optimizer for the model
 loss_function = nn.BCELoss()
 optimizer = optim.Adam(CNNPoor.parameters(), lr = 0.001)
 
+# function that takes a chunk given by the data pipeline, applies standard scaler, and 
+# calls the model to predict what word the chunk represents
+#
+# input: filepath of saved model state, chunk to be classified
+# output: integer classification of the chunk, 0 for no and 1 for yes
 def predict(chunk, filepath, model=CNNPoor):
     chunk = np.expand_dims(chunk, axis=0)
     scaler = StandardScaler()
