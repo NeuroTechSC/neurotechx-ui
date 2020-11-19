@@ -254,14 +254,14 @@ function Display() {
                                         }}
                                     >
                                     </h3>
-                                    <p style={{color: "whitesmoke"}}>
-                                        Port Number: {port}
+                                    <p style={{color: "whitesmoke", textAlign: "left"}}>
+                                        <b style={{fontWeight: "900"}}>Port Number: </b>{port}
                                         <br />
-                                        Prediction: {prediction}
+                                        <b style={{fontWeight: "900"}}>Prediction: </b>{prediction}
                                         <br/>
-                                        Accuracy: {accuracy}
+                                        <b style={{fontWeight: "900"}}>Accuracy: </b>{accuracy}
                                         <br/>
-                                        id: {responseID}
+                                        <b style={{fontWeight: "900"}}>id: </b>{responseID}
                                     </p>
                                 </div>
                             </div>
