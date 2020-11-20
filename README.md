@@ -43,6 +43,7 @@ npm start
 
 <!-- USAGE EXAMPLES -->
 ## Usage
+* Input portnumber for hardware
 * Press Start time on UI
 * Prediction for your response to the question is displayed
 * Record accuracy with left hand side (response recorded into database)
