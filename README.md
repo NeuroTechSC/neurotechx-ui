@@ -19,32 +19,39 @@
 
 <!-- TECHNOLOGIES -->
 ### Technologies
+* React
+* Flask
+* PyTorch, Scikit, Numpy, MNE 
+* OpenBCI and Brainflow
 
 <!-- INSTALLATION -->
 ### Installation
-
-
-
+For MacOs:
+```
+cd api
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+cd ..
+python api/api.py runserver -d -r
+```
+In Second Terminal:
+```
+npm install
+npm start
+```
 
 <!-- USAGE EXAMPLES -->
 ## Usage
-
-
-
-
-<!-- LICENSE -->
-## License
-
+* Press Start time on UI
+* Prediction for your response to the question is displayed
+* Record accuracy with left hand side (response recorded into database)
+* Next Question 
 
 
 <!-- CONTACT -->
 ## Contact
-
-
-
-
-<!-- SOURCES -->
-## Sources
+<a href="https://neurotech.ucsc.edu/">NeuroTechSC</a>
 
 <p align="center">
 <a href="https://designrevision.com/downloads/shards-dashboard-lite-react/">
