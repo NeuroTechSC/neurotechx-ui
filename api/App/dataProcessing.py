@@ -27,23 +27,24 @@ def process(chunk):
 	filtered_data = mne.io.RawArray(filtered_raw, info)
 
 	# Setting up data for fitting
-	ica_info = mne.create_info(7, sfreq, ch_types='eeg')
-	ica_data = mne.io.RawArray(filtered_raw, ica_info)
+	#ICA is removed for now, but might be used again in the future
+# 	ica_info = mne.create_info(7, sfreq, ch_types='eeg')
+# 	ica_data = mne.io.RawArray(filtered_raw, ica_info)
 
-	# Fitting and applying ICA
-	ica = mne.preprocessing.ICA(verbose=True)
-	ica.fit(inst=ica_data)
-	ica.apply(ica_data)
-	filtered_raw_numpy = ica_data[:][0]
+# 	# Fitting and applying ICA
+# 	ica = mne.preprocessing.ICA(verbose=True)
+# 	ica.fit(inst=ica_data)
+# 	ica.apply(ica_data)
+# 	filtered_raw_numpy = ica_data[:][0]
 
 	#Normalization
-	normalized_raw = sk.normalize(filtered_raw_numpy, norm='l2')
-	preprocessed_raw = ica_data[:][0]
-	normalized_raw = sk.normalize(preprocessed_raw, norm='l2')
-	print((normalized_raw))
+# 	normalized_raw = sk.normalize(filtered_raw_numpy, norm='l2')
+# 	preprocessed_raw = ica_data[:][0]
+# 	normalized_raw = sk.normalize(preprocessed_raw, norm='l2')
+# 	print((normalized_raw))
 
-	normalized_data = mne.io.RawArray(normalized_raw, info)
-	return normalized_data[:][0]
+# 	normalized_data = mne.io.RawArray(normalized_raw, info)
+	return filtered_data[:][0]
 
 # def splice(filename, channels=7, hz=250, chunkSecs=2):
 
