@@ -7,6 +7,11 @@ export default function() {
       htmlAfter: ""
     },
     {
+      title: "States",
+      htmlBefore: '<i class="material-icons">edit</i>',
+      to: "/States",
+    },
+    {
       title: "Port Number",
       htmlBefore: '<i class="material-icons">edit</i>',
       to: "/PortNumber",

@@ -6,6 +6,7 @@ import { DefaultLayout } from "./layouts";
 
 // Route Views
 import Display from "./views/Display";
+import States from "./views/States"
 import BlogPosts from "./views/BlogPosts";
 import Tables from "./views/Tables";
 import PortNumber from "./views/PortNumber"
@@ -21,6 +22,11 @@ export default [
     path: "/Display",
     layout: DefaultLayout,
     component: Display
+  },
+  {
+    path: "/States",
+    layout: DefaultLayout,
+    component: States
   },
   {
     path: "/PortNumber",

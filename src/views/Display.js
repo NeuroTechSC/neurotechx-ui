@@ -170,7 +170,7 @@ function Display() {
                     >
                         Start
                     </a>
-                    
+
                     {/*<a href='QuestionDisplay.js' class= "button" target ="_blank" rel="noopener noreferrer" style={{textDecoration: "none"}}>Go To </a>
                     <a class = "button" onClick= "QuestionDisplay.js" style ={{textDecoration: "none"}} > Open</a>    onclick="location.href='QuestionDisplay.js'"
                     <a class = "button" href= "./QuestionDisplay.js" target ="_blank" style= {{textDecoration: "none"}}> Open</a>*/}
@@ -200,7 +200,7 @@ function Display() {
                                               >
                                           Start Time
                                                     </Button>
-                                                    
+
 
 
 

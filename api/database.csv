@@ -1,47 +1,80 @@
 ,id,question,response,correct,time
-0,3,Can you see out the back of your head?,1,False,1599957104.066192
-1,5,Do you know the Schrödinger equation of quantum theory?,10,False,1599957104.066198
-2,6,Do you like chocolate milkshakes?,1,False,1599957104.0662022
-3,11,Do you know the Schrödinger equation of quantum theory?,1,False,1599957104.066205
-4,13,Were you born in the summer?,1,False,1599957104.066208
-5,19,Did you see Bigfoot?,1,False,1599957104.0662122
-6,22,Did you see Bigfoot?,1,False,1599957104.066216
-7,24,Do you know how to swim?,1,False,1599957104.066219
-8,25,Are Martians really green?,1,False,1599957104.0662222
-9,28,Do you know the Schrödinger equation of quantum theory?,1,False,1599957104.066226
-10,29,Have elves always live at the North Pole?,1,False,1599957104.06623
-11,30,Is your shoe size 14?,1,False,1599957104.0662332
-12,31,Can cats jump six times their length?,1,False,1599957104.066237
-13,32,Were you on Survivor last year?,1,False,1599957104.066241
-14,33,Do you know how to swim?,1,False,1599957104.0662441
-15,34,Did you see Bigfoot?,1,False,1599957104.066247
-16,35,Can you see the moon?,1,False,1599957104.066251
-17,36,Do you like chocolate milkshakes?,1,False,1599957104.066255
-18,37,Do mice really eat cheese?,1,False,1599957104.066259
-19,38,Do you believe in Santa Claus?,1,False,1599957104.066263
-20,39,Were you in the swamp yesterday?,1,False,1599957104.0662668
-21,40,Have elves always live at the North Pole?,1,False,1599957104.0662699
-22,41,Do mice really eat cheese?,1,False,1599957104.0662742
-23,42,Do you believe in ghosts?,1,False,1599957104.066278
-24,43,Can cats jump six times their length?,1,False,1599957104.0662808
-25,44,Did you see Bigfoot?,1,False,1599957104.0662851
-26,45,Can you play poker?,1,False,1599957104.0662882
-27,46,Can you see out the back of your head?,1,False,1599957104.066292
-28,47,Do you have a twin?,1,False,1599957104.066296
-29,48,Did you see Bigfoot?,1,False,1599957104.066338
-30,49,Do mice really eat cheese?,1,False,1599957104.0663419
-31,50,Have elves always live at the North Pole?,1,False,1599957104.066345
-32,51,Can you see the moon?,1,False,1599957104.0663471
-33,52,Do you believe in ghosts?,1,False,1599957104.066349
-34,53,Can you see the moon?,1,False,1599957104.0663512
-35,54,Can you play poker?,1,False,1599957104.0663528
-36,55,Do mice really eat cheese?,1,False,1599957104.066356
-37,56,Do you like chocolate milkshakes?,1,False,1599957104.066358
-38,57,Do mice really eat cheese?,1,False,1599957104.06636
-39,58,Can you see the moon?,1,False,1599957104.0663621
-40,59,Can you see the moon?,1,False,1599957104.0663638
-41,60,Do mice really eat cheese?,1,False,1599957104.066366
-42,61,Did you see Bigfoot?,1,False,1599957104.066369
-43,62,Have you ever seen a UFO?,1,False,1599957104.066371
-44,63,Can you play poker?,1,False,1599957104.066373
-45,64,Can you make yourself disappear?,1,False,1599957104.066375
+0,3,Can you see out the back of your head?,1,False,1612130296.246711
+1,5,Do you know the Schrödinger equation of quantum theory?,10,False,1612130296.246716
+2,6,Do you like chocolate milkshakes?,1,False,1612130296.246722
+3,11,Do you know the Schrödinger equation of quantum theory?,1,False,1612130296.2467258
+4,13,Were you born in the summer?,1,False,1612130296.246729
+5,15,Do you know the Schrödinger equation of quantum theory?,1,False,1612130296.246732
+6,17,Can you play poker?,1,False,1612130296.2467341
+7,18,Have elves always live at the North Pole?,1,False,1612130296.2467358
+8,19,Did you see Bigfoot?,1,False,1612130296.246739
+9,20,Can you see out the back of your head?,1,False,1612130296.246741
+10,22,Did you see Bigfoot?,1,False,1612130296.246743
+11,23,Can you see the moon?,1,False,1612130296.246746
+12,24,Do you know how to swim?,1,False,1612130296.246748
+13,25,Are Martians really green?,1,False,1612130296.246751
+14,28,Do you know the Schrödinger equation of quantum theory?,1,False,1612130296.246753
+15,29,Have elves always live at the North Pole?,1,False,1612130296.2467551
+16,30,Is your shoe size 14?,1,False,1612130296.246758
+17,31,Can cats jump six times their length?,1,False,1612130296.24676
+18,32,Were you on Survivor last year?,1,False,1612130296.246763
+19,33,Do you know how to swim?,1,False,1612130296.2467651
+20,34,Did you see Bigfoot?,1,False,1612130296.2467682
+21,35,Can you see the moon?,1,False,1612130296.24677
+22,36,Do you like chocolate milkshakes?,1,False,1612130296.246772
+23,37,Do mice really eat cheese?,1,False,1612130296.2467752
+24,38,Do you believe in Santa Claus?,1,False,1612130296.246777
+25,39,Were you in the swamp yesterday?,1,False,1612130296.24678
+26,40,Have elves always live at the North Pole?,1,False,1612130296.246782
+27,41,Do mice really eat cheese?,1,False,1612130296.246784
+28,42,Do you believe in ghosts?,1,False,1612130296.246787
+29,43,Can cats jump six times their length?,1,False,1612130296.2467892
+30,44,Did you see Bigfoot?,1,False,1612130296.246791
+31,45,Can you play poker?,1,False,1612130296.246794
+32,46,Can you see out the back of your head?,1,False,1612130296.2467961
+33,47,Do you have a twin?,1,False,1612130296.246798
+34,48,Did you see Bigfoot?,1,False,1612130296.246801
+35,49,Do mice really eat cheese?,1,False,1612130296.246803
+36,50,Have elves always live at the North Pole?,1,False,1612130296.246805
+37,51,Can you see the moon?,1,False,1612130296.246808
+38,52,Do you believe in ghosts?,1,False,1612130296.2468102
+39,53,Can you see the moon?,1,False,1612130296.2468119
+40,54,Can you play poker?,1,False,1612130296.246814
+41,55,Do mice really eat cheese?,1,False,1612130296.246817
+42,56,Do you like chocolate milkshakes?,1,False,1612130296.246819
+43,57,Do mice really eat cheese?,1,False,1612130296.2468212
+44,58,Can you see the moon?,1,False,1612130296.246824
+45,59,Can you see the moon?,1,False,1612130296.246826
+46,60,Do mice really eat cheese?,1,False,1612130296.246828
+47,61,Did you see Bigfoot?,1,False,1612130296.2468312
+48,62,Have you ever seen a UFO?,1,False,1612130296.2468328
+49,63,Can you play poker?,1,False,1612130296.246836
+50,64,Can you make yourself disappear?,1,False,1612130296.246838
+51,65,Do you believe in ghosts?,1,False,1612130296.24684
+52,66,Do you believe in ghosts?,1,False,1612130296.2468429
+53,67,Have elves always live at the North Pole?,1,,1612130296.246849
+54,68,Do you know how to swim?,1,,1612130296.246853
+55,69,Do you have a twin?,1,,1612130296.246855
+56,70,Do you believe in ghosts?,1,,1612130296.246857
+57,71,Do you like chocolate milkshakes?,1,,1612130296.246861
+58,72,Do you believe in ghosts?,1,False,1612130296.2468631
+59,73,Have you ever seen a UFO?,1,,1612130296.246866
+60,74,Do mice really eat cheese?,1,,1612130296.246869
+61,75,Do you believe in Santa Claus?,1,,1612130296.246871
+62,76,Can you make yourself disappear?,1,,1612130296.2468731
+63,77,Do you have a twin?,1,,1612130296.2468748
+64,78,Do you believe in ghosts?,1,,1612130296.246878
+65,79,Do you like chocolate milkshakes?,1,,1612130296.24688
+66,80,Have you ever seen a UFO?,1,,1612130296.246882
+67,81,Have you ever seen a UFO?,1,,1612130296.246884
+68,82,Can you make yourself disappear?,1,,1612130296.246887
+69,83,Did you see Bigfoot?,1,,1612130296.2468889
+70,84,Do you believe in Santa Claus?,1,,1612130296.246891
+71,85,Were you in the swamp yesterday?,1,,1612130296.2468941
+72,86,Can cats jump six times their length?,1,,1612130296.246896
+73,87,Have you ever seen a UFO?,1,,1612130296.246899
+74,88,Are Martians really green?,1,,1612130296.246901
+75,89,Are Martians really green?,1,,1612130296.246903
+76,90,Do you believe in ghosts?,1,,1612130296.246906
+77,91,Can you see the moon?,1,,1612130296.246908
+78,92,Do you know the Schrödinger equation of quantum theory?,1,,1612130296.2469099
