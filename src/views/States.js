@@ -29,13 +29,30 @@ const Fetch = () => {
                     [8, 'florida'],
                     [9, 'georgia'],
                     [10, 'hawaii'],
-                    [11, 'idaho']
+                    [11, 'idaho'],
+                    [12, "iowa"],
+                    [13, "illinois"],
+                    [14, "indiana"],
+                    [15, "kansas"],
+                    [16, "kentucky"],
+                    [17, "louisiana"],
+                    [18, "massachusetts"],
+                    [19, "maryland"],
+                    [20, "maine"],
+                    [21, "michigan"],
+                    [22, "minnesota"],
+                    [23, "missouri"],
+                    [24, "mississippi"],
+                    [25, "montana"]
+                    // [26, "North Carolina"]
+                    //  "North Dakota", "Nebraska", "New Hampshire", "New Jersey", "New Mexico", "Nevada", "New York", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Puerto Rico", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Virginia", "Virgin Islands", "Vermont", "Washington", "Wisconsin", "West Virginia", "Wyoming"]
+
                   ];
 
   let states = new Map(kvStates);
 
   // console.log(states.get(getRandomInt(1)));
-  return API(`https://suncatcherstudio.com/uploads/patterns/us-states/map-outlines/svg/${states.get(getRandomInt(12))}-map-outline-dddddd.png`);
+  return API(`https://suncatcherstudio.com/uploads/patterns/us-states/map-outlines/svg/${states.get(getRandomInt(27))}-map-outline-dddddd.png`);
 };
 
 class States extends React.Component {
