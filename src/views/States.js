@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import {Container, Button} from "shards-react";
-
+let state = "";
 const API = val => {
   return new Promise(res => {
     setTimeout(res.bind(null, val), 2000);
@@ -11,6 +11,25 @@ const API = val => {
 function refreshPage() {
   window.location.reload(false);
 }
+
+function start() {
+    //Countdown Timer
+    var timeleft = 2.0;
+    var downloadTimer = setInterval(function () {
+        if (timeleft <= 0) {
+            clearInterval(downloadTimer);
+            document.getElementById("countdown").innerHTML = "Countdown: 0 seconds";
+        } else {
+            document.getElementById("countdown").innerHTML =
+                "Countdown: " + timeleft + " seconds";
+        }
+        timeleft -= 1;
+    }, 1000);
+  }
+
+  function showAns() {
+        document.getElementById("ans").innerHTML = `Answer: ${state}`;
+    }
 
 function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
@@ -50,9 +69,9 @@ const Fetch = () => {
                   ];
 
   let states = new Map(kvStates);
-
+  state = states.get(getRandomInt(27))
   // console.log(states.get(getRandomInt(1)));
-  return API(`https://suncatcherstudio.com/uploads/patterns/us-states/map-outlines/svg/${states.get(getRandomInt(27))}-map-outline-dddddd.png`);
+  return API(`https://suncatcherstudio.com/uploads/patterns/us-states/map-outlines/svg/${state}-map-outline-dddddd.png`);
 };
 
 class States extends React.Component {
@@ -60,10 +79,20 @@ class States extends React.Component {
     image: "",
     loading: true
   };
+  ans = {
+      text: "",
+      loading: true
+  }
 
   componentDidMount() {
     Fetch().then(image => { 
       this.setState({ image, loading: false });
+    });
+  }
+
+  compAns() {
+    Fetch().then(text => { 
+      this.setState({ text, loading: false });
     });
   }
 
@@ -102,21 +131,28 @@ class States extends React.Component {
                                 <div style={{color: "EAC435", fontWeight:"bold"}}></div> {/* color: #EAC435*/}
 
                                 <div id="countdown" style={{color: "EAC435", fontWeight: "bold"}}>Countdown:</div>
-
+                                <div id="ans" style={{color: "EAC435", fontWeight: "bold"}}>Answer: </div>
                                 <br/>
                                 <br/>
+                                <br/>
+                                    <Button type="submit"
+                                            id='timer'
 
-                                  <Button type="submit"
-                                          id='timer'
+                                            onClick={() => {
+                                                        start()
+                                                    }}
+                                            >
+                                        Start Time
+                                    </Button>
+                                    <Button type="submit"
+                                            id='timer'
 
-                                          onClick={() => {
-                                                    
-                                                  }}
-                                          >
-                                      Start Time
-                                                </Button>
-
-
+                                            onClick={() => {
+                                                        showAns()
+                                                    }}
+                                            >
+                                        Show Answer
+                                    </Button>
 
 
                             <br/>
