@@ -18,6 +18,15 @@ import App.hardware
 import App.dataProcessing
 import App.ml
 
+# speech to text
+import speech_recognition as sr
+from datetime import datetime
+import time
+import os
+from gtts import gTTS
+import pyttsx3
+import sys
+
 blue = Blueprint('blue', __name__)
 
 def init_blueprint(app):
@@ -219,3 +228,67 @@ def record_Subvocalization():
     # Return yes or no ...
     print("Prediction: " + str(prediction))
     return json.jsonify({'prediction': Val})
+
+@blue.route('/startVoice', methods=['POST', 'GET'])
+def toggle_Assistant():
+    # ==============================================================================
+    # Take User Queries
+    # ==============================================================================
+    # Queries
+    def respond(audioString):
+        print(audioString)
+        tts = gTTS(text=audioString, lang='en')
+        tts.save("userQuery.mp3")
+        os.system("mpg321 -q userQuery.mp3")
+
+    def SpeakText(command):
+        engine = pyttsx3.init()
+        engine.say(command)
+        engine.runAndWait()
+
+    def listen():
+        r = sr.Recognizer()
+        with sr.Microphone() as source:
+            # respond("Go Ahead, I'm Listening...")
+            audio = r.listen(source)
+        data = ""
+
+        try:
+            data = r.recognize_google(audio)
+            #respond("I heard: " + data)
+        except sr.UnknownValueError:
+            print("Speech Recognition did not understand audio")
+            pass
+        except sr.RequestError as e:
+            print("Request Failed; {0}".format(e))
+        return data
+
+    def assistant(data):
+        listening = True
+
+        if "next question" in data:
+            listening = True
+            respond("next question")
+            return listening
+        elif "what time is it" in data:
+            listening = True
+            date = f'{datetime.now():%Y-%m-%d}'
+            time = f'{datetime.now():%H:%M}'
+            respond('The date is ' + date + ' The time is ' + time)
+            return listening
+        elif "stop listening" in data:
+            listening = False
+            respond('Bye, Take Care! Press the microphone in the upper bar to call me back!')
+            return listening
+
+
+        return listening
+
+    time.sleep(2)
+    listening = True
+    respond("Hi, what can I do for you?")
+
+    while listening == True:
+
+        data = listen()
+        listening = assistant(data)
