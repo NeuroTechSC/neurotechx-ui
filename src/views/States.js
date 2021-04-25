@@ -92,8 +92,7 @@ const Fetch = () => {
                   ];
 
   let states = new Map(kvStates);
-  state = states.get(getRandomInt(27))
-  // console.log(states.get(getRandomInt(1)));
+  state = states.get(getRandomInt(51))
   return API(`https://suncatcherstudio.com/uploads/patterns/us-states/map-outlines/svg/${state}-map-outline-dddddd.png`);
 };
 
