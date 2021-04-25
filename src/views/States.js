@@ -62,10 +62,33 @@ const Fetch = () => {
                     [22, "minnesota"],
                     [23, "missouri"],
                     [24, "mississippi"],
-                    [25, "montana"]
-                    // [26, "North Carolina"]
-                    //  "North Dakota", "Nebraska", "New Hampshire", "New Jersey", "New Mexico", "Nevada", "New York", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Puerto Rico", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Virginia", "Virgin Islands", "Vermont", "Washington", "Wisconsin", "West Virginia", "Wyoming"]
-
+                    [25, "montana"],
+                    [26, "north-carolina"],
+                    [27, "north-dakota"],
+                    [28, "nebraska"],
+                    [29, "new-hampshire"],
+                    [30, "new-jersey"],
+                    [31, "new-mexico"],
+                    [32, "nevada"],
+                    [33, "new-york"],
+                    [34, "ohio"],
+                    [35, "oklahoma"],
+                    [36, "oregon"],
+                    [37, "pennsylvania"],
+                    [38, "rhode-island"],
+                    [39, "south-carolina"],
+                    [40, "south-dakota"],
+                    [41, "tennessee"],
+                    [42, "texas"],
+                    [43, "utah"],
+                    [44, "virginia"],
+                    [45, "virginia islands"],
+                    [46, "vermont"],
+                    [47, "washington"],
+                    [48, "wisconsin"],
+                    [49, "west-virignia"],
+                    [50, "wyoming"],
+                    [51, "puerto-rico"]
                   ];
 
   let states = new Map(kvStates);
